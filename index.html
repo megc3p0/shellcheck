@@ -4,6 +4,8 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>ShellCheck Boston</title>
+<link href="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css" rel="stylesheet"/>
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
 <style>
 * { box-sizing:border-box; margin:0; padding:0; }
 body { font-family:-apple-system,'Helvetica Neue',Arial,sans-serif; background:#f5f5f5; color:#111; display:flex; flex-direction:column; height:100vh; overflow:hidden; }
@@ -41,7 +43,7 @@ input { font-family:inherit; }
 
 #map-view { flex:1; display:flex; flex-direction:column; overflow:hidden; }
 #map-wrap { flex:0 0 42vh; position:relative; }
-#map-frame { width:100%; height:100%; border:none; display:block; }
+#map { width:100%; height:100%; }
 #map-legend { position:absolute; bottom:10px; left:10px; background:rgba(255,255,255,0.97); border-radius:8px; padding:6px 12px; box-shadow:0 1px 6px rgba(0,0,0,0.08); display:flex; gap:10px; flex-wrap:wrap; z-index:5; }
 .legend-item { display:flex; align-items:center; gap:5px; font-size:10px; color:#666; font-weight:500; }
 .legend-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
@@ -150,10 +152,7 @@ input { font-family:inherit; }
 
   <div id="map-view">
     <div id="map-wrap">
-      <iframe id="map-frame"
-        src="https://www.openstreetmap.org/export/embed.html?bbox=-71.1300,42.3300,-71.0100,42.4000&layer=mapnik"
-        allowfullscreen>
-      </iframe>
+      <div id="map" style="width:100%;height:100%;"></div>
       <div id="map-legend">
         <div class="legend-item"><div class="legend-dot" style="background:#16a34a"></div>No Shellfish Listed*</div>
         <div class="legend-item"><div class="legend-dot" style="background:#ea580c"></div>Has Shellfish</div>
@@ -181,6 +180,7 @@ input { font-family:inherit; }
 
 <script>
 const APIFY_TOKEN = "YOUR_APIFY_TOKEN";
+const MAPBOX_TOKEN = "pk.eyJ1IjoibWVnYzNwMCIsImEiOiJjbW4yNHYyY20xMXYzMnBwd3J6c3c4cWc2In0.hZsRaWrvyNIdNjKLNXjMgQ";
 
 const MENU_TYPE = {
   none:  { label:"Not Detected on Menu",         sublabel:"Shellfish not found on menu reviewed*",  color:"#16a34a", bg:"#f0fdf4", border:"#86efac", emoji:"🟢" },
@@ -222,18 +222,18 @@ const NEIGHBORHOODS = [
 ];
 
 const RESTAURANTS = [
-  { id:1,  name:"Giulia", website:"https://giuliarestaurant.com",              neighborhood:"cambridge",     cuisine:"Italian",      menuType:"none",  fryerStatus:"na",        price:"$$$",  address:"1682 Massachusetts Ave, Cambridge", notes:"Not detected on menu reviewed" },
-  { id:2,  name:"Tatte Bakery", website:"https://tattebakery.com",        neighborhood:"back-bay",      cuisine:"Cafe",         menuType:"none",  fryerStatus:"na",        price:"$",    address:"70 Exeter St, Boston",              notes:"Not detected on menu reviewed" },
-  { id:3,  name:"Dumpling House", website:"https://dumplinghousecambridge.com",      neighborhood:"cambridge",     cuisine:"Chinese",      menuType:"some",  fryerStatus:"unknown",   price:"$",    address:"950 Massachusetts Ave, Cambridge",  notes:"Shellfish dumplings detected" },
-  { id:4,  name:"Coppa", website:"https://coppaboston.com",               neighborhood:"south-end",     cuisine:"Italian",      menuType:"none",  fryerStatus:"na",        price:"$$$",  address:"253 Shawmut Ave, Boston",           notes:"Not detected on menu reviewed" },
-  { id:5,  name:"Myers + Chang", website:"https://myersandchang.com",       neighborhood:"south-end",     cuisine:"Asian Fusion", menuType:"heavy", fryerStatus:"shared",    price:"$$",   address:"1145 Washington St, Boston",        notes:"Detected throughout menu" },
-  { id:6,  name:"Row 34", website:"https://row34.com",              neighborhood:"seaport",       cuisine:"Seafood",      menuType:"heavy", fryerStatus:"shared",    price:"$$$",  address:"383 Congress St, Boston",           notes:"Detected throughout menu" },
-  { id:7,  name:"Pastoral", website:"https://pastoralboston.com",            neighborhood:"back-bay",      cuisine:"American",     menuType:"none",  fryerStatus:"unknown",   price:"$$",   address:"345 Boylston St, Boston",           notes:"Not detected on menu reviewed" },
-  { id:8,  name:"Trattoria Il Panino", website:"https://trattoriailpanino.com", neighborhood:"north-end",     cuisine:"Italian",      menuType:"some",  fryerStatus:"unknown",   price:"$$",   address:"11 Parmenter St, Boston",           notes:"Detected in pasta dishes" },
-  { id:9,  name:"Beacon Hill Bistro", website:"https://beaconhillhotel.com/bistro",  neighborhood:"beacon-hill",   cuisine:"American",     menuType:"none",  fryerStatus:"unknown",   price:"$$$",  address:"25 Charles St, Boston",             notes:"Not detected on menu reviewed" },
-  { id:10, name:"El Pelón Taqueria", website:"https://elpelon.com",   neighborhood:"fenway",        cuisine:"Mexican",      menuType:"none",  fryerStatus:"dedicated", price:"$",    address:"92 Peterborough St, Boston",        notes:"Not detected on menu reviewed" },
-  { id:11, name:"Cinquecento", website:"https://cinquecentoboston.com",         neighborhood:"south-end",     cuisine:"Italian",      menuType:"none",  fryerStatus:"na",        price:"$$",   address:"500 Harrison Ave, Boston",          notes:"Not detected on menu reviewed" },
-  { id:12, name:"Area Four", website:"https://areafour.com",           neighborhood:"cambridge",     cuisine:"Pizza",        menuType:"none",  fryerStatus:"unknown",   price:"$$",   address:"500 Technology Square, Cambridge",  notes:"Not detected on menu reviewed" },
+  { id:1,  name:"Giulia", lat:42.378, lng:-71.1172, website:"https://giuliarestaurant.com",              neighborhood:"cambridge",     cuisine:"Italian",      menuType:"none",  fryerStatus:"na",        price:"$$$",  address:"1682 Massachusetts Ave, Cambridge", notes:"Not detected on menu reviewed" },
+  { id:2,  name:"Tatte Bakery", lat:42.3496, lng:-71.0793, website:"https://tattebakery.com",        neighborhood:"back-bay",      cuisine:"Cafe",         menuType:"none",  fryerStatus:"na",        price:"$",    address:"70 Exeter St, Boston",              notes:"Not detected on menu reviewed" },
+  { id:3,  name:"Dumpling House", lat:42.365, lng:-71.104, website:"https://dumplinghousecambridge.com",      neighborhood:"cambridge",     cuisine:"Chinese",      menuType:"some",  fryerStatus:"unknown",   price:"$",    address:"950 Massachusetts Ave, Cambridge",  notes:"Shellfish dumplings detected" },
+  { id:4,  name:"Coppa", lat:42.3415, lng:-71.0712, website:"https://coppaboston.com",               neighborhood:"south-end",     cuisine:"Italian",      menuType:"none",  fryerStatus:"na",        price:"$$$",  address:"253 Shawmut Ave, Boston",           notes:"Not detected on menu reviewed" },
+  { id:5,  name:"Myers + Chang", lat:42.344, lng:-71.068, website:"https://myersandchang.com",       neighborhood:"south-end",     cuisine:"Asian Fusion", menuType:"heavy", fryerStatus:"shared",    price:"$$",   address:"1145 Washington St, Boston",        notes:"Detected throughout menu" },
+  { id:6,  name:"Row 34", lat:42.3524, lng:-71.0502, website:"https://row34.com",              neighborhood:"seaport",       cuisine:"Seafood",      menuType:"heavy", fryerStatus:"shared",    price:"$$$",  address:"383 Congress St, Boston",           notes:"Detected throughout menu" },
+  { id:7,  name:"Pastoral", lat:42.351, lng:-71.076, website:"https://pastoralboston.com",            neighborhood:"back-bay",      cuisine:"American",     menuType:"none",  fryerStatus:"unknown",   price:"$$",   address:"345 Boylston St, Boston",           notes:"Not detected on menu reviewed" },
+  { id:8,  name:"Trattoria Il Panino", lat:42.3641, lng:-71.0556, website:"https://trattoriailpanino.com", neighborhood:"north-end",     cuisine:"Italian",      menuType:"some",  fryerStatus:"unknown",   price:"$$",   address:"11 Parmenter St, Boston",           notes:"Detected in pasta dishes" },
+  { id:9,  name:"Beacon Hill Bistro", lat:42.3582, lng:-71.0688, website:"https://beaconhillhotel.com/bistro",  neighborhood:"beacon-hill",   cuisine:"American",     menuType:"none",  fryerStatus:"unknown",   price:"$$$",  address:"25 Charles St, Boston",             notes:"Not detected on menu reviewed" },
+  { id:10, name:"El Pelón Taqueria", lat:42.3459, lng:-71.0998, website:"https://elpelon.com",   neighborhood:"fenway",        cuisine:"Mexican",      menuType:"none",  fryerStatus:"dedicated", price:"$",    address:"92 Peterborough St, Boston",        notes:"Not detected on menu reviewed" },
+  { id:11, name:"Cinquecento", lat:42.3422, lng:-71.0655, website:"https://cinquecentoboston.com",         neighborhood:"south-end",     cuisine:"Italian",      menuType:"none",  fryerStatus:"na",        price:"$$",   address:"500 Harrison Ave, Boston",          notes:"Not detected on menu reviewed" },
+  { id:12, name:"Area Four", lat:42.3628, lng:-71.0908, website:"https://areafour.com",           neighborhood:"cambridge",     cuisine:"Pizza",        menuType:"none",  fryerStatus:"unknown",   price:"$$",   address:"500 Technology Square, Cambridge",  notes:"Not detected on menu reviewed" },
 ];
 
 const HOOD_EMOJI = {
@@ -811,6 +811,49 @@ function openInfoSheet() {
       </div>
     </div>`;
 }
+
+// ---- MAPBOX ----
+let map = null;
+let mapMarkers = [];
+
+function initMap() {
+  if (map || !document.getElementById("map")) return;
+  mapboxgl.accessToken = MAPBOX_TOKEN;
+  map = new mapboxgl.Map({
+    container: "map",
+    style: "mapbox://styles/mapbox/streets-v12",
+    center: [-71.0589, 42.3601],
+    zoom: 12.5,
+  });
+  map.addControl(new mapboxgl.NavigationControl(), "top-right");
+  map.on("load", renderMarkers);
+}
+
+function renderMarkers() {
+  if (!map) return;
+  mapMarkers.forEach(m => m.remove());
+  mapMarkers = [];
+  getFiltered().forEach(r => {
+    if (!r.lat || !r.lng) return;
+    const t = effectiveTier(r);
+    const el = document.createElement("div");
+    el.style.cssText = `width:34px;height:34px;border-radius:50%;background:white;border:3px solid ${t.color};display:flex;align-items:center;justify-content:center;font-size:15px;cursor:pointer;position:relative;box-shadow:0 2px 8px rgba(0,0,0,0.2);transition:transform 0.15s;`;
+    el.innerHTML = cEmoji(r.cuisine);
+    const badge = document.createElement("div");
+    badge.style.cssText = `position:absolute;top:-4px;right:-4px;background:${t.color};color:white;font-size:8px;font-weight:700;border-radius:6px;padding:1px 3px;border:1.5px solid white;pointer-events:none;`;
+    badge.innerText = t.label.split(" ")[0];
+    el.appendChild(badge);
+    el.addEventListener("mouseenter", () => el.style.transform = "scale(1.2)");
+    el.addEventListener("mouseleave", () => el.style.transform = "scale(1)");
+    el.addEventListener("click", () => openModal(r));
+    const marker = new mapboxgl.Marker({ element: el, anchor: "center" })
+      .setLngLat([r.lng, r.lat])
+      .addTo(map);
+    mapMarkers.push(marker);
+  });
+}
+
+setTimeout(initMap, 100);
 
 render();
 </script>
