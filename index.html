@@ -836,7 +836,7 @@ function renderMarkers() {
     if (!r.lat || !r.lng) return;
     const t = effectiveTier(r);
     const el = document.createElement("div");
-    el.style.cssText = `width:14px;height:14px;border-radius:50%;background:${t.color};border:2px solid white;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,0.3);transition:transform 0.15s;`;
+    el.style.cssText = `width:14px;height:14px;border-radius:50%;background:${t.color};border:2px solid white;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,0.3);transition:transform 0.15s;transform-origin:center;`;
     el.addEventListener("mouseenter", () => el.style.transform = "scale(1.4)");
     el.addEventListener("mouseleave", () => el.style.transform = "scale(1)");
     el.addEventListener("click", () => openModal(r));
