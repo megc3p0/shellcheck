@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>ShellCheck Boston</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+body { font-family:-apple-system,'Helvetica Neue',Arial,sans-serif; background:#f5f5f5; color:#111; display:flex; flex-direction:column; height:100vh; overflow:hidden; }
+button { cursor:pointer; font-family:inherit; }
+input { font-family:inherit; }
+
+#header { padding:14px 20px 12px; display:flex; align-items:center; justify-content:space-between; background:#fff; border-bottom:0.5px solid #ebebeb; flex-shrink:0; }
+.logo { display:flex; align-items:center; gap:10px; }
+.logo-dot { width:8px; height:8px; border-radius:50%; background:#16a34a; flex-shrink:0; }
+.logo-name { font-weight:500; font-size:17px; letter-spacing:-0.4px; color:#111; }
+.logo-sub { font-size:10px; color:#bbb; letter-spacing:0.1em; text-transform:uppercase; margin-top:1px; }
+.view-btns { display:flex; gap:6px; }
+.view-btn { padding:6px 14px; border-radius:20px; border:0.5px solid #ebebeb; font-weight:500; font-size:12px; transition:all 0.15s; background:#fff; color:#888; }
+.view-btn.active { background:#111; color:#fff; border-color:#111; }
+
+#disclaimer-bar { background:#fffbeb; border-bottom:0.5px solid #fef08a; padding:6px 16px; font-size:10px; color:#92400e; text-align:center; flex-shrink:0; letter-spacing:0.01em; }
+
+#searchbar { padding:10px 16px; background:#fff; border-bottom:0.5px solid #ebebeb; display:flex; align-items:center; gap:8px; flex-shrink:0; position:relative; }
+#search-input { flex:1; padding:8px 12px 8px 32px; border-radius:8px; border:0.5px solid #e5e5e5; font-size:13px; outline:none; background:#fafafa; color:#111; }
+#search-input:focus { border-color:#111; background:#fff; }
+#search-icon { position:absolute; left:26px; top:50%; transform:translateY(-50%); font-size:13px; pointer-events:none; color:#bbb; }
+#search-clear { padding:4px 8px; border:none; background:none; color:#bbb; font-size:15px; display:none; }
+
+#filterbar { padding:8px 16px; background:#fff; border-bottom:0.5px solid #ebebeb; display:flex; align-items:center; gap:6px; overflow-x:auto; flex-shrink:0; }
+.filter-label { font-size:10px; color:#bbb; white-space:nowrap; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; flex-shrink:0; }
+.filter-btn { padding:4px 12px; border-radius:20px; white-space:nowrap; font-size:11px; font-weight:500; transition:all 0.15s; flex-shrink:0; border:0.5px solid #e5e5e5; background:#fff; color:#888; }
+.filter-btn.active { border-color:#111; background:#111; color:#fff; }
+.filter-divider { width:0.5px; height:16px; background:#ebebeb; flex-shrink:0; margin:0 2px; }
+
+#cuisinebar { padding:6px 16px 8px; background:#fff; border-bottom:0.5px solid #ebebeb; display:flex; align-items:center; gap:5px; overflow-x:auto; flex-shrink:0; }
+.cuisine-chip { padding:3px 11px; border-radius:20px; white-space:nowrap; font-size:11px; font-weight:500; border:0.5px solid #e5e5e5; background:#fff; color:#888; transition:all 0.15s; flex-shrink:0; }
+.cuisine-chip.active { border-color:#111; background:#111; color:#fff; }
+
+#main { display:flex; flex:1; overflow:hidden; }
+
+#map-view { flex:1; display:flex; flex-direction:column; overflow:hidden; }
+#map-wrap { flex:0 0 42vh; position:relative; }
+#map-frame { width:100%; height:100%; border:none; display:block; }
+#map-legend { position:absolute; bottom:10px; left:10px; background:rgba(255,255,255,0.97); border-radius:8px; padding:6px 12px; box-shadow:0 1px 6px rgba(0,0,0,0.08); display:flex; gap:10px; flex-wrap:wrap; z-index:5; }
+.legend-item { display:flex; align-items:center; gap:5px; font-size:10px; color:#666; font-weight:500; }
+.legend-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+
+#restaurant-list { flex:1; overflow-y:auto; background:#f5f5f5; position:relative; }
+#list-header { padding:12px 16px 4px; font-size:10px; color:#bbb; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; }
+#list-cards { padding:6px 12px 20px; display:flex; flex-direction:column; gap:6px; }
+
+.r-card { background:#fff; border:0.5px solid #ebebeb; border-radius:12px; padding:12px 14px; cursor:pointer; transition:all 0.15s; position:relative; z-index:1; }
+.r-card:hover { border-color:#d0d0d0; }
+.r-card.expanded { border-color:#d0d0d0; box-shadow:0 4px 20px rgba(0,0,0,0.1); z-index:10; }
+.r-expand { animation: expandIn 0.15s ease; }
+@keyframes expandIn { from { opacity:0; transform:translateY(-4px); } to { opacity:1; transform:translateY(0); } }
+.r-emoji { width:38px; height:38px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:17px; flex-shrink:0; }
+.r-info { flex:1; min-width:0; }
+.r-name { font-weight:500; font-size:14px; color:#111; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.r-sub { font-size:11px; color:#bbb; margin-top:2px; }
+.r-flags { display:flex; gap:4px; margin-top:5px; flex-wrap:wrap; }
+.r-flag { font-size:10px; padding:2px 7px; border-radius:6px; font-weight:500; }
+.flag-fryer { background:#fff7ed; color:#c2410c; border:0.5px solid #fed7aa; }
+.flag-note { background:#f5f5f5; color:#888; border:0.5px solid #e5e5e5; }
+.r-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; margin-left:auto; }
+
+#list-view { flex:1; display:none; flex-direction:column; overflow-y:auto; padding:14px; }
+.hood-card { background:#fff; border:0.5px solid #ebebeb; border-radius:12px; padding:12px 16px; cursor:pointer; display:flex; align-items:center; gap:12px; transition:all 0.15s; margin-bottom:6px; }
+.hood-card.selected { border-color:#111; }
+.section-label { font-size:10px; color:#bbb; font-weight:500; margin-bottom:10px; letter-spacing:0.08em; text-transform:uppercase; }
+
+#sidebar { width:180px; border-right:0.5px solid #ebebeb; background:#fff; overflow-y:auto; padding:14px 10px; display:flex; flex-direction:column; flex-shrink:0; }
+.sidebar-label { font-size:10px; color:#bbb; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:8px; padding-left:6px; }
+.sidebar-section-label { font-size:10px; color:#bbb; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; padding:0 6px; margin-bottom:5px; margin-top:2px; }
+.sidebar-divider { height:0.5px; background:#f0f0f0; margin:10px 0; flex-shrink:0; }
+.hood-btn { border-radius:8px; padding:6px 8px; border:0.5px solid transparent; background:transparent; display:flex; align-items:center; gap:7px; text-align:left; transition:all 0.15s; width:100%; }
+.hood-btn:hover { background:#f5f5f5; }
+.hood-btn.selected { background:#f5f5f5; border-color:#ddd; }
+.hood-dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+.hood-btn-name { font-size:11px; font-weight:500; color:#444; }
+.hood-btn.selected .hood-btn-name { color:#111; }
+.hood-btn-sub { font-size:10px; color:#bbb; }
+.sb-btn { width:100%; text-align:left; padding:6px 8px; border-radius:8px; border:0.5px solid transparent; background:transparent; font-size:12px; color:#666; font-weight:500; transition:all 0.15s; display:flex; align-items:center; gap:7px; }
+.sb-btn:hover { background:#f5f5f5; }
+.sb-btn.active { background:#f5f5f5; border-color:#ddd; color:#111; }
+.sb-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+
+.modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.7); display:flex; align-items:center; justify-content:center; z-index:9999; backdrop-filter:blur(12px); padding:24px; }
+.modal-sheet { background:#fff; border-radius:20px; width:100%; max-width:400px; padding:24px 22px 28px; box-shadow:0 8px 40px rgba(0,0,0,0.12); max-height:90vh; overflow-y:auto; }
+.modal-handle { width:36px; height:3px; background:#e5e5e5; border-radius:2px; margin:0 auto 18px; }
+
+#autocomplete { position:absolute; top:100%; left:16px; right:16px; background:#fff; border:0.5px solid #ebebeb; border-radius:10px; box-shadow:0 4px 16px rgba(0,0,0,0.08); z-index:500; display:none; max-height:200px; overflow-y:auto; }
+.ac-item { padding:10px 14px; font-size:13px; cursor:pointer; display:flex; align-items:center; gap:10px; border-bottom:0.5px solid #f5f5f5; }
+.ac-item:last-child { border-bottom:none; }
+.ac-item:hover { background:#fafafa; }
+.ac-name { font-weight:500; color:#111; }
+.ac-sub { font-size:11px; color:#bbb; margin-top:1px; }
+
+@keyframes bounce { 0%,80%,100%{transform:scale(0.6);opacity:0.4} 40%{transform:scale(1);opacity:1} }
+.dot1,.dot2,.dot3 { width:7px;height:7px;border-radius:50%;background:#111;display:inline-block;animation:bounce 1.2s infinite;margin:0 3px; }
+.dot2{animation-delay:0.2s;} .dot3{animation-delay:0.4s;}
+</style>
+</head>
+<body>
+
+<div id="header">
+  <div class="logo">
+    <div class="logo-dot"></div>
+    <div>
+      <div class="logo-name">ShellCheck</div>
+      <div class="logo-sub">Boston · allergy menu checker</div>
+    </div>
+  </div>
+  <div class="view-btns">
+    <button class="view-btn active" onclick="setView('map')" id="btn-map">Map</button>
+    <button class="view-btn inactive" onclick="setView('list')" id="btn-list">List</button>
+    <button class="view-btn inactive" onclick="openInfoSheet()" id="btn-info">Guide</button>
+  </div>
+</div>
+
+<div id="disclaimer-bar">
+  ⚠️ ShellCheck is a menu info tool — not a safety guarantee. Always tell your server about your allergy.
+</div>
+
+<!-- Search bar with autocomplete -->
+<div id="searchbar">
+  <span id="search-icon">🔍</span>
+  <input id="search-input" type="text" placeholder="Search restaurants or cuisines…" oninput="onSearch(this.value)" onfocus="onSearch(this.value)" onblur="setTimeout(hideAC,150)"/>
+  <button id="search-clear" onclick="clearSearch()">✕</button>
+  <div id="autocomplete"></div>
+</div>
+
+
+
+<div id="main">
+  <div id="sidebar">
+    <div id="sidebar-clear" style="display:none;margin-bottom:10px;">
+      <button onclick="clearAll()" style="width:100%;padding:7px 8px;border-radius:8px;border:0.5px solid #e5e5e5;background:#f5f5f5;font-size:11px;font-weight:500;color:#666;text-align:center;cursor:pointer;">✕ Clear selections</button>
+    </div>
+    <div class="sidebar-section-label">Menu</div>
+    <div id="sidebar-menu"></div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-label">Cuisine</div>
+    <div id="sidebar-cuisines"></div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-label">Neighborhood</div>
+    <div id="sidebar-hoods"></div>
+  </div>
+
+  <div id="map-view">
+    <div id="map-wrap">
+      <iframe id="map-frame"
+        src="https://www.openstreetmap.org/export/embed.html?bbox=-71.1300,42.3300,-71.0100,42.4000&layer=mapnik"
+        allowfullscreen>
+      </iframe>
+      <div id="map-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#16a34a"></div>No Shellfish Listed*</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#ea580c"></div>Has Shellfish</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#dc2626"></div>Shellfish-Heavy</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#c2410c;border-radius:3px;width:14px;height:9px;"></div>Fryer Unknown</div>
+      </div>
+    </div>
+    <div id="restaurant-list">
+      <div id="list-overlay" onclick="closeExpand()" style="display:none;position:absolute;inset:0;background:rgba(0,0,0,0.25);z-index:5;"></div>
+      <div id="list-header"></div>
+      <div id="list-cards"></div>
+    </div>
+  </div>
+
+  <div id="list-view">
+    <div class="section-label">Neighborhoods</div>
+    <div id="hood-rankings"></div>
+    <div class="section-label" id="rest-section-label" style="margin-top:10px;"></div>
+    <div id="list-view-cards" style="display:flex;flex-direction:column;gap:8px;"></div>
+  </div>
+
+</div>
+
+<div id="modal-container"></div>
+
+<script>
+const APIFY_TOKEN = "YOUR_APIFY_TOKEN";
+
+const MENU_TYPE = {
+  none:  { label:"Not Detected on Menu",         sublabel:"Shellfish not found on menu reviewed*",  color:"#16a34a", bg:"#f0fdf4", border:"#86efac", emoji:"🟢" },
+  some:  { label:"Shellfish Detected",           sublabel:"Shellfish dishes found on this menu",    color:"#ea580c", bg:"#fff7ed", border:"#fed7aa", emoji:"🟠" },
+  heavy: { label:"Heavy Shellfish", sublabel:"Shellfish throughout this menu",       color:"#dc2626", bg:"#fef2f2", border:"#fca5a5", emoji:"🔴" },
+};
+
+// 🔴 Heavy Shellfish if shellfish is on menu AND fryer risk exists (unknown or shared)
+// 🟠 Shellfish Detected if shellfish is on menu BUT no frying risk (dedicated fryer or no frying)
+// 🟢 Not Detected if no shellfish on menu
+function effectiveTier(r) {
+  const hasShellfishOnMenu = r.menuType === "some" || r.menuType === "heavy";
+  const fryerRisky = r.fryerStatus === "unknown" || r.fryerStatus === "shared";
+  if (hasShellfishOnMenu && fryerRisky) return MENU_TYPE["heavy"];
+  return MENU_TYPE[r.menuType];
+}
+//              "dedicated" = dedicated fryer (no shellfish fried here)
+//              "shared" = confirmed shared fryer with shellfish
+//              "na" = not applicable (no frying)
+const FRYER_INFO = {
+  unknown:   { label:"⚠️ Fryer Risk Unknown", style:"flag-fryer", tip:"We don't know if this kitchen fries shellfish in the same oil. Even if a dish contains no shellfish, frying in shared oil can trigger a serious allergic reaction. Always ask your server: <strong>'Is there a dedicated fryer that has never been used for shellfish?'</strong>" },
+  dedicated: { label:"Fryer Risk: None Reported", style:"", tip:"A dedicated fryer (never used for shellfish) has been reported at this location. Always confirm with staff directly — fryer use can change without notice." },
+  shared:    { label:"⚠️ Fryer Risk Detected", style:"flag-fryer", tip:"A fryer shared with shellfish has been reported here. <strong>Even shellfish-free dishes may be contaminated</strong> if fried in the same oil. Ask staff before ordering anything fried." },
+  na:        { label:"No Frying", style:"flag-note", tip:"This restaurant does not appear to use a fryer." },
+};
+
+const CAVEAT = `⚠️ <strong>This is not a safety guarantee.</strong> "Not detected" only means shellfish wasn't found on the menu we reviewed — it does <strong>not</strong> mean the kitchen is shellfish-free. Menus change. Sauces, stocks, and shared equipment can still trigger a reaction. <strong style="color:#92400e;">Always tell your server about your allergy before ordering.</strong>`;
+
+const NEIGHBORHOODS = [
+  { id:"north-end",     name:"North End" },
+  { id:"east-boston",   name:"East Boston" },
+  { id:"seaport",       name:"Seaport" },
+  { id:"back-bay",      name:"Back Bay" },
+  { id:"south-end",     name:"South End" },
+  { id:"beacon-hill",   name:"Beacon Hill" },
+  { id:"fenway",        name:"Fenway" },
+  { id:"cambridge",     name:"Cambridge" },
+  { id:"jamaica-plain", name:"Jamaica Plain" },
+];
+
+const RESTAURANTS = [
+  { id:1,  name:"Giulia", website:"https://giuliarestaurant.com",              neighborhood:"cambridge",     cuisine:"Italian",      menuType:"none",  fryerStatus:"na",        price:"$$$",  address:"1682 Massachusetts Ave, Cambridge", notes:"Not detected on menu reviewed" },
+  { id:2,  name:"Tatte Bakery", website:"https://tattebakery.com",        neighborhood:"back-bay",      cuisine:"Cafe",         menuType:"none",  fryerStatus:"na",        price:"$",    address:"70 Exeter St, Boston",              notes:"Not detected on menu reviewed" },
+  { id:3,  name:"Dumpling House", website:"https://dumplinghousecambridge.com",      neighborhood:"cambridge",     cuisine:"Chinese",      menuType:"some",  fryerStatus:"unknown",   price:"$",    address:"950 Massachusetts Ave, Cambridge",  notes:"Shellfish dumplings detected" },
+  { id:4,  name:"Coppa", website:"https://coppaboston.com",               neighborhood:"south-end",     cuisine:"Italian",      menuType:"none",  fryerStatus:"na",        price:"$$$",  address:"253 Shawmut Ave, Boston",           notes:"Not detected on menu reviewed" },
+  { id:5,  name:"Myers + Chang", website:"https://myersandchang.com",       neighborhood:"south-end",     cuisine:"Asian Fusion", menuType:"heavy", fryerStatus:"shared",    price:"$$",   address:"1145 Washington St, Boston",        notes:"Detected throughout menu" },
+  { id:6,  name:"Row 34", website:"https://row34.com",              neighborhood:"seaport",       cuisine:"Seafood",      menuType:"heavy", fryerStatus:"shared",    price:"$$$",  address:"383 Congress St, Boston",           notes:"Detected throughout menu" },
+  { id:7,  name:"Pastoral", website:"https://pastoralboston.com",            neighborhood:"back-bay",      cuisine:"American",     menuType:"none",  fryerStatus:"unknown",   price:"$$",   address:"345 Boylston St, Boston",           notes:"Not detected on menu reviewed" },
+  { id:8,  name:"Trattoria Il Panino", website:"https://trattoriailpanino.com", neighborhood:"north-end",     cuisine:"Italian",      menuType:"some",  fryerStatus:"unknown",   price:"$$",   address:"11 Parmenter St, Boston",           notes:"Detected in pasta dishes" },
+  { id:9,  name:"Beacon Hill Bistro", website:"https://beaconhillhotel.com/bistro",  neighborhood:"beacon-hill",   cuisine:"American",     menuType:"none",  fryerStatus:"unknown",   price:"$$$",  address:"25 Charles St, Boston",             notes:"Not detected on menu reviewed" },
+  { id:10, name:"El Pelón Taqueria", website:"https://elpelon.com",   neighborhood:"fenway",        cuisine:"Mexican",      menuType:"none",  fryerStatus:"dedicated", price:"$",    address:"92 Peterborough St, Boston",        notes:"Not detected on menu reviewed" },
+  { id:11, name:"Cinquecento", website:"https://cinquecentoboston.com",         neighborhood:"south-end",     cuisine:"Italian",      menuType:"none",  fryerStatus:"na",        price:"$$",   address:"500 Harrison Ave, Boston",          notes:"Not detected on menu reviewed" },
+  { id:12, name:"Area Four", website:"https://areafour.com",           neighborhood:"cambridge",     cuisine:"Pizza",        menuType:"none",  fryerStatus:"unknown",   price:"$$",   address:"500 Technology Square, Cambridge",  notes:"Not detected on menu reviewed" },
+];
+
+const HOOD_EMOJI = {
+  "north-end": "⚓",
+  "east-boston": "✈️",
+  "seaport": "🚢",
+  "back-bay": "🎨",
+  "south-end": "🌳",
+  "beacon-hill": "🏛️",
+  "fenway": "⚾",
+  "cambridge": "🎓",
+  "jamaica-plain": "🎸",
+};
+const EMOJI = { Italian:"🍝", Mexican:"🌮", Seafood:"🐟", Chinese:"🥢", "Asian Fusion":"🍜", Pizza:"🍕", Cafe:"☕", American:"🍔" };
+const cEmoji = c => EMOJI[c] || "🍽";
+const hEmoji = id => HOOD_EMOJI[id] || "📍";
+
+const ALL_CUISINES = [...new Set(RESTAURANTS.map(r => r.cuisine))].sort();
+
+let filterType = "all";
+let filterFryerOnly = false;
+let selectedHood = null;
+let selectedCuisine = null;
+let expandedId = null;
+let searchQuery = "";
+
+function getFiltered() {
+  return RESTAURANTS.filter(r => {
+    const t = effectiveTier(r);
+    const effectiveType = t === MENU_TYPE["heavy"] ? "heavy" : t === MENU_TYPE["some"] ? "some" : "none";
+    if (filterType !== "all" && effectiveType !== filterType) return false;
+    if (filterFryerOnly && r.fryerStatus !== "unknown") return false;
+    if (selectedHood && r.neighborhood !== selectedHood) return false;
+    if (selectedCuisine && r.cuisine !== selectedCuisine) return false;
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      if (!r.name.toLowerCase().includes(q) && !r.cuisine.toLowerCase().includes(q) && !r.neighborhood.toLowerCase().includes(q)) return false;
+    }
+    return true;
+  });
+}
+
+function render() {
+  renderSidebar();
+  renderCards();
+  renderHoodList();
+}
+
+// ---- CUISINE CHIPS ----
+function renderCuisineChips() {
+  document.getElementById("cuisine-chips").innerHTML = ALL_CUISINES.map(c =>
+    `<button class="cuisine-chip ${selectedCuisine===c?"active":""}" onclick="selectCuisine('${c}')">${cEmoji(c)} ${c}</button>`
+  ).join("");
+}
+
+// ---- SEARCH / AUTOCOMPLETE ----
+function onSearch(val) {
+  searchQuery = val.trim();
+  document.getElementById("search-clear").style.display = val ? "block" : "none";
+  renderAC(val);
+  render();
+}
+
+function renderAC(val) {
+  const ac = document.getElementById("autocomplete");
+  if (!val || val.length < 1) { ac.style.display = "none"; return; }
+  const q = val.toLowerCase();
+  const matches = RESTAURANTS.filter(r =>
+    r.name.toLowerCase().includes(q) || r.cuisine.toLowerCase().includes(q)
+  ).slice(0, 6);
+  if (!matches.length) { ac.style.display = "none"; return; }
+  ac.innerHTML = matches.map(r => {
+    const t = effectiveTier(r);
+    return `<div class="ac-item" onmousedown="selectFromAC(${r.id})">
+      <span style="font-size:18px;">${cEmoji(r.cuisine)}</span>
+      <div>
+        <div class="ac-name">${r.name}</div>
+        <div class="ac-sub">${r.cuisine} · ${r.neighborhood.replace(/-/g," ").replace(/\b\w/g,c=>c.toUpperCase())} · <span style="color:${t.color};font-weight:600;">${t.emoji} ${t.label}</span></div>
+      </div>
+    </div>`;
+  }).join("");
+  ac.style.display = "block";
+}
+
+function selectFromAC(id) {
+  const r = RESTAURANTS.find(x => x.id === id);
+  if (!r) return;
+  document.getElementById("search-input").value = r.name;
+  document.getElementById("search-clear").style.display = "block";
+  hideAC();
+  searchQuery = r.name;
+  render();
+  setTimeout(() => openModal(r), 100);
+}
+
+function hideAC() { document.getElementById("autocomplete").style.display = "none"; }
+
+function clearSearch() {
+  document.getElementById("search-input").value = "";
+  document.getElementById("search-clear").style.display = "none";
+  hideAC();
+  searchQuery = "";
+  render();
+}
+
+// ---- CARDS ----
+function renderCards() {
+  const filtered = getFiltered();
+  const hood = NEIGHBORHOODS.find(n => n.id === selectedHood);
+  document.getElementById("list-header").textContent =
+    `${filtered.length} restaurant${filtered.length!==1?"s":""} · ${hood ? hood.name : "All Boston"}${selectedCuisine ? " · "+selectedCuisine : ""}`;
+
+  const html = filtered.length ? filtered.map(r => cardHTML(r)).join("") :
+    `<div style="text-align:center;padding:40px 20px;color:#9ca3af;"><div style="font-size:32px;margin-bottom:8px;">🔍</div><div style="font-weight:600;">No restaurants match</div></div>`;
+
+  document.getElementById("list-cards").innerHTML = html;
+  document.getElementById("list-view-cards").innerHTML = html;
+  ["list-cards","list-view-cards"].forEach(id => {
+    document.getElementById(id).querySelectorAll(".r-card").forEach((el,i) => {
+      el.addEventListener("click", () => openModal(filtered[i]));
+    });
+  });
+
+  const lbl = document.getElementById("rest-section-label");
+  if (lbl) lbl.textContent = `${filtered.length} Restaurants${hood ? " · "+hood.name : ""}`;
+}
+
+function showFryerRisk(r) {
+  // Always show fryer risk if shellfish is on the menu and fryer isn't confirmed dedicated
+  if ((r.menuType === "some" || r.menuType === "heavy") && r.fryerStatus !== "dedicated" && r.fryerStatus !== "na") return true;
+  // Also show for no-shellfish menus if fryer status is unknown or shared
+  if (r.menuType === "none" && (r.fryerStatus === "unknown" || r.fryerStatus === "shared")) return true;
+  return false;
+}
+
+function cardHTML(r) {
+  const t = effectiveTier(r);
+  const fryerRisk = showFryerRisk(r);
+  const isExpanded = expandedId === r.id;
+  const fryerLabel = r.fryerStatus==="dedicated" ? { text:"🟢 None reported", color:"#15803d", bg:"#f0fdf4" }
+    : fryerRisk ? { text:"🟠 Risk", color:"#c2410c", bg:"#fff7ed" }
+    : { text:"None", color:"#aaa", bg:"#f5f5f5" };
+
+  return `<div class="r-card ${isExpanded ? "expanded" : ""}" onclick="toggleExpand(${r.id})">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div class="r-emoji" style="background:${t.color}12;">${cEmoji(r.cuisine)}</div>
+      <div class="r-info">
+        <div class="r-name">${r.name}</div>
+        <div class="r-sub">${r.cuisine} · ${r.neighborhood.replace(/-/g," ").replace(/\b\w/g,c=>c.toUpperCase())} · ${r.price}</div>
+        ${fryerRisk ? `<div class="r-flags"><span class="r-flag flag-fryer">Fryer risk</span></div>` : ""}
+      </div>
+      <div class="r-dot" style="background:${t.color};"></div>
+    </div>
+
+    ${isExpanded ? `
+    <div class="r-expand" onclick="event.stopPropagation()">
+      <div style="border-top:0.5px solid #f0f0f0;margin-top:10px;padding-top:12px;display:flex;flex-direction:column;gap:8px;">
+
+        <div style="font-size:11px;color:#aaa;">${r.address}</div>
+
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <span style="font-size:11px;color:#aaa;">Menu</span>
+          <span style="font-size:10px;font-weight:500;padding:2px 9px;border-radius:20px;background:${t.bg};color:${t.color};">${t.emoji} ${t.label}</span>
+        </div>
+        ${r.fryerStatus !== "na" ? `
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <span style="font-size:11px;color:#aaa;">Fryer</span>
+          <span style="font-size:10px;font-weight:500;padding:2px 9px;border-radius:20px;background:${fryerLabel.bg};color:${fryerLabel.color};">${fryerLabel.text}</span>
+        </div>` : ""}
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <span style="font-size:11px;color:#aaa;">Price</span>
+          <span style="font-size:10px;font-weight:500;padding:2px 9px;border-radius:20px;background:#f5f5f5;color:#444;">💵 ${r.price}</span>
+        </div>
+
+        <div style="font-size:10px;color:#bbb;line-height:1.5;padding-top:4px;">Menu data may be incomplete. Always tell your server about your allergy.</div>
+
+        <button onclick="event.stopPropagation();closeExpand();scanMenu(${r.id})" style="width:100%;padding:10px;background:#111;border:none;border-radius:10px;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;" onmouseover="this.style.background='#333'" onmouseout="this.style.background='#111'">
+          <span style="font-size:14px;">🦐</span>
+          <span style="font-weight:500;font-size:12px;">Run ShellCheck</span>
+        </button>
+      </div>
+    </div>` : ""}
+  </div>`;
+}
+
+// ---- SIDEBAR ----
+function renderSidebar() {
+  // Clear button — only show when something is selected
+  const hasSelection = filterType !== "all" || selectedCuisine || selectedHood;
+  document.getElementById("sidebar-clear").style.display = hasSelection ? "block" : "none";
+  // Menu type section
+  const menuItems = [
+    { id:"all",   label:"All",                dot:null },
+    { id:"none",  label:"Not Detected",       dot:"#16a34a" },
+    { id:"some",  label:"Shellfish Detected",  dot:"#ea580c" },
+    { id:"heavy", label:"Heavy Shellfish",     dot:"#dc2626" },
+  ];
+  document.getElementById("sidebar-menu").innerHTML = menuItems.map(m => {
+    const isActive = filterType === m.id;
+    const onclick = `setFilter('${m.id}')`;
+    return `<button class="sb-btn ${isActive?"active":""}" onclick="${onclick}">
+      ${m.dot ? `<div class="sb-dot" style="background:${m.dot};"></div>` : `<div style="width:8px;height:8px;border-radius:2px;background:#e5e5e5;flex-shrink:0;"></div>`}
+      <span>${m.label}</span>
+    </button>`;
+  }).join("");
+
+  // Cuisine section
+  const ALL_CUISINES = [...new Set(RESTAURANTS.map(r => r.cuisine))].sort();
+  document.getElementById("sidebar-cuisines").innerHTML =
+    [`<button class="sb-btn ${!selectedCuisine?"active":""}" onclick="selectCuisine(null)"><div style="width:8px;height:8px;border-radius:2px;background:#e5e5e5;flex-shrink:0;"></div><span>All</span></button>`]
+    .concat(ALL_CUISINES.map(c =>
+      `<button class="sb-btn ${selectedCuisine===c?"active":""}" onclick="selectCuisine('${c}')">
+        <span style="font-size:13px;">${cEmoji(c)}</span>
+        <span>${c}</span>
+      </button>`
+    )).join("");
+
+  // Neighborhood section
+  document.getElementById("sidebar-hoods").innerHTML = NEIGHBORHOODS.map(n => {
+    const rests = RESTAURANTS.filter(r => r.neighborhood === n.id);
+    const sel = selectedHood === n.id;
+    return `<button class="hood-btn ${sel?"selected":""}" onclick="selectHood('${n.id}')">
+      <div class="hood-dot" style="background:${sel?"#111":"#d1d5db"};"></div>
+      <div>
+        <div class="hood-btn-name">${hEmoji(n.id)} ${n.name}</div>
+        <div class="hood-btn-sub">${rests.length} listed</div>
+      </div>
+    </button>`;
+  }).join("");
+}
+
+// ---- HOOD LIST ----
+function renderHoodList() {
+  document.getElementById("hood-rankings").innerHTML = NEIGHBORHOODS.map(n => {
+    const rests = RESTAURANTS.filter(r => r.neighborhood === n.id);
+    const none  = rests.filter(r => r.menuType === "none").length;
+    const heavy = rests.filter(r => r.menuType === "heavy").length;
+    const fryerUnknown = rests.filter(r => r.fryerStatus === "unknown" || r.fryerStatus === "shared").length;
+    const sel = selectedHood === n.id;
+    const icon = rests.length === 0 ? "⚪" : heavy > 0 && heavy >= none ? "🔴" : none > 0 && heavy === 0 ? "🔵" : "🟡";
+    return `<div class="hood-card ${sel?"selected":""}" onclick="selectHood('${n.id}')">
+      <div style="font-size:20px;">${icon}</div>
+      <div style="flex:1;">
+        <div style="font-weight:700;font-size:14px;">${n.name}</div>
+        <div style="font-size:11px;color:#9ca3af;margin-top:2px;">${none} no shellfish listed · ${fryerUnknown} fryer unknown</div>
+      </div>
+      <div style="font-size:11px;color:#9ca3af;">${rests.length} listed</div>
+    </div>`;
+  }).join("");
+}
+
+// ---- FILTER BAR ----
+function renderFilterBar() {
+  ["all","none","some","heavy"].forEach(v => {
+    const el = document.getElementById("f"+v);
+    if (el) el.className = "filter-btn " + (filterType===v?"active":"inactive");
+  });
+  const ff = document.getElementById("ffryer");
+  if (ff) ff.className = "filter-btn " + (filterFryerOnly ? "active":"inactive");
+}
+
+function setView(v) {
+  document.getElementById("map-view").style.display  = v==="map"  ? "flex" : "none";
+  document.getElementById("list-view").style.display = v==="list" ? "flex" : "none";
+  document.getElementById("btn-map").className  = "view-btn " + (v==="map"  ? "active":"inactive");
+  document.getElementById("btn-list").className = "view-btn " + (v==="list" ? "active":"inactive");
+}
+
+function toggleExpand(id) {
+  expandedId = (expandedId === id) ? null : id;
+  renderCards();
+  document.getElementById("list-overlay").style.display = expandedId ? "block" : "none";
+}
+function closeExpand() {
+  expandedId = null;
+  renderCards();
+  document.getElementById("list-overlay").style.display = "none";
+}
+function setFilter(type) { filterType = type; render(); }
+function toggleFryerFilter() { filterFryerOnly = !filterFryerOnly; render(); }
+function selectHood(id) { selectedHood = (selectedHood===id) ? null : id; render(); }
+function selectCuisine(c) { selectedCuisine = (selectedCuisine===c) ? null : c; render(); }
+function clearAll() { filterType = "all"; selectedCuisine = null; selectedHood = null; filterFryerOnly = false; render(); }
+
+// ---- RESTAURANT MODAL ----
+function openModal(r) {
+  const t = effectiveTier(r);
+  const fryerRisk = showFryerRisk(r);
+  const fryerLabel = r.fryerStatus==="dedicated" ? { text:"🟢 None reported", color:"#15803d", bg:"#f0fdf4" }
+    : fryerRisk ? { text:"🟠 Risk", color:"#c2410c", bg:"#fff7ed" }
+    : { text:"None", color:"#aaa", bg:"#f5f5f5" };
+
+  document.getElementById("modal-container").innerHTML = `
+    <div class="modal-overlay" onclick="closeModal()">
+      <div class="modal-sheet" onclick="event.stopPropagation()" style="position:relative;"><button onclick="closeModal()" style="position:absolute;top:12px;right:12px;width:26px;height:26px;border-radius:50%;border:none;background:#f0f0f0;color:#888;font-size:12px;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;">✕</button>
+        
+
+        <!-- Header -->
+        <div style="display:flex;align-items:center;gap:11px;margin-bottom:14px;">
+          <div style="font-size:28px;">${cEmoji(r.cuisine)}</div>
+          <div style="flex:1;">
+            <div style="font-weight:500;font-size:16px;color:#111;">${r.name}</div>
+            <div style="font-size:11px;color:#aaa;margin-top:1px;">${r.address}</div>
+          </div>
+          
+        </div>
+
+        <div style="height:0.5px;background:#f0f0f0;margin-bottom:14px;"></div>
+
+        <!-- Status rows -->
+        <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:14px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-size:12px;color:#aaa;">Menu</span>
+            <span style="font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;background:${t.bg};color:${t.color};">${t.emoji} ${t.label}</span>
+          </div>
+          ${r.fryerStatus !== "na" ? `
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-size:12px;color:#aaa;">Fryer</span>
+            <span style="font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;background:${fryerLabel.bg};color:${fryerLabel.color};">${fryerLabel.text}</span>
+          </div>` : ""}
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-size:12px;color:#aaa;">Cuisine</span>
+            <span style="font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;background:#f5f5f5;color:#444;">${cEmoji(r.cuisine)} ${r.cuisine}</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-size:12px;color:#aaa;">Neighborhood</span>
+            <span style="font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;background:#f5f5f5;color:#444;">${hEmoji(r.neighborhood)} ${r.neighborhood.replace(/-/g," ").replace(/\b\w/g,c=>c.toUpperCase())}</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-size:12px;color:#aaa;">Price</span>
+            <span style="font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;background:#f5f5f5;color:#444;">💵 ${r.price}</span>
+          </div>
+          ${r.website ? `
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-size:12px;color:#aaa;">Website</span>
+            <a href="${r.website}" target="_blank" style="font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;background:#f0f7ff;color:#2563eb;text-decoration:none;">🌐 Visit site</a>
+          </div>` : ""}
+        </div>
+
+        <div style="height:0.5px;background:#f0f0f0;margin-bottom:12px;"></div>
+
+        <div style="font-size:11px;color:#bbb;line-height:1.5;margin-bottom:14px;">Menu data may be incomplete. Always tell your server about your allergy.</div>
+
+        <button onclick="closeModal();scanMenu(${r.id})" style="width:100%;padding:14px;background:#111;border:none;border-radius:12px;color:#fff;cursor:pointer;margin-bottom:8px;display:flex;align-items:center;justify-content:center;gap:8px;transition:background 0.15s;" onmouseover="this.style.background='#333'" onmouseout="this.style.background='#111'">
+          <span style="font-size:18px;">🦐</span>
+          <span style="font-weight:500;font-size:14px;letter-spacing:-0.2px;">Run ShellCheck</span>
+        </button>
+        <button onclick="closeModal()" style="width:100%;padding:10px;background:#f5f5f5;border:none;border-radius:10px;color:#888;font-size:12px;cursor:pointer;">Close</button>
+      </div>
+    </div>`;
+}
+
+function closeModal() {
+  document.getElementById("modal-container").innerHTML = "";
+  expandedId = null;
+  renderCards();
+  document.getElementById("list-overlay").style.display = "none";
+}
+// ---- MENU SCAN ----
+const ZIGGY_SVG = `<svg width="90" height="100" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <path d="M60 38 Q84 52 87 76 Q90 96 75 106 Q62 113 48 106 Q33 98 36 76 Q38 56 60 38 Z" fill="#f4a166"/>
+  <path d="M47 66 Q60 61 73 66" fill="none" stroke="#e8895a" stroke-width="1.5"/>
+  <path d="M45 77 Q60 71 75 77" fill="none" stroke="#e8895a" stroke-width="1.5"/>
+  <path d="M46 88 Q60 83 74 88" fill="none" stroke="#e8895a" stroke-width="1.5"/>
+  <polygon points="60,22 66,36 54,36" fill="#e8895a"/>
+  <path d="M51 32 Q42 18 36 8" fill="none" stroke="#e8895a" stroke-width="1.2" stroke-linecap="round"/>
+  <path d="M57 28 Q52 14 48 4" fill="none" stroke="#e8895a" stroke-width="1.2" stroke-linecap="round"/>
+  <path d="M69 32 Q78 18 84 8" fill="none" stroke="#e8895a" stroke-width="1.2" stroke-linecap="round"/>
+  <path d="M63 28 Q68 14 72 4" fill="none" stroke="#e8895a" stroke-width="1.2" stroke-linecap="round"/>
+  <ellipse cx="60" cy="50" rx="27" ry="22" fill="#f4a166"/>
+  <rect x="41" y="44" width="16" height="12" rx="5" fill="none" stroke="#333" stroke-width="2"/>
+  <rect x="63" y="44" width="16" height="12" rx="5" fill="none" stroke="#333" stroke-width="2"/>
+  <line x1="57" y1="50" x2="63" y2="50" stroke="#333" stroke-width="2"/>
+  <line x1="41" y1="50" x2="36" y2="48" stroke="#333" stroke-width="1.5"/>
+  <line x1="79" y1="50" x2="84" y2="48" stroke="#333" stroke-width="1.5"/>
+  <circle cx="49" cy="50" r="3.5" fill="#1a1a1a"/>
+  <circle cx="47" cy="48" r="1.2" fill="white"/>
+  <circle cx="71" cy="50" r="3.5" fill="#1a1a1a"/>
+  <circle cx="69" cy="48" r="1.2" fill="white"/>
+  <path d="M52 62 Q60 67 68 62" fill="none" stroke="#e8895a" stroke-width="2" stroke-linecap="round"/>
+  <rect x="82" y="55" width="6" height="32" rx="2" fill="#fbbf24" transform="rotate(-25 82 55)"/>
+  <polygon points="82,87 88,87 85,97" fill="#f97316" transform="rotate(-25 82 55)"/>
+  <rect x="82" y="55" width="6" height="5" rx="1" fill="#9ca3af" transform="rotate(-25 82 55)"/>
+  <path d="M28 112 Q34 108 40 112 Q46 116 52 112 Q58 108 64 112 Q70 116 76 112 Q82 108 88 112" fill="none" stroke="#dc2626" stroke-width="2.5" stroke-linecap="round"/>
+</svg>`;
+
+function showScanModal(r, status, analysis, error) {
+  const riskColor = { safe:"#16a34a", caution:"#d97706", avoid:"#dc2626" };
+  const riskEmoji = { safe:"🟢", caution:"🟠", avoid:"🔴" };
+  const riskLabel = { safe:"No Shellfish Detected", caution:"Check With Staff", avoid:"Contains Shellfish" };
+  let body = "";
+
+  if (status==="scraping") {
+    body=`<div style="text-align:center;padding:24px 0 20px;">
+      <div style="display:inline-block;margin-bottom:10px;">${ZIGGY_SVG}</div>
+      <div style="font-weight:500;font-size:15px;margin-bottom:4px;color:#111;">Running ShellCheck…</div>
+      <div style="font-size:12px;color:#aaa;margin-bottom:18px;">Fetching menu data</div>
+      <span class="dot1"></span><span class="dot2"></span><span class="dot3"></span>
+    </div>`;
+  } else if (status==="analyzing") {
+    body=`<div style="text-align:center;padding:24px 0 20px;">
+      <div style="display:inline-block;margin-bottom:10px;">${ZIGGY_SVG}</div>
+      <div style="font-weight:500;font-size:15px;margin-bottom:4px;color:#111;">Checking each dish…</div>
+      <div style="font-size:12px;color:#aaa;margin-bottom:18px;">Flagging shellfish and hidden ingredients</div>
+      <span class="dot1"></span><span class="dot2"></span><span class="dot3"></span>
+    </div>`;
+  } else if (status==="error") {
+    body=`<div style="text-align:center;padding:34px 0;">
+      <div style="font-size:32px;margin-bottom:10px;">😕</div>
+      <div style="font-weight:500;font-size:15px;margin-bottom:5px;color:#111;">ShellCheck hit a snag</div>
+      <div style="font-size:12px;color:#aaa;">${error||"Couldn't fetch menu data — try again later"}</div>
+    </div>`;
+  } else if (status==="done" && analysis) {
+    body=`
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+        <div style="flex-shrink:0;">${ZIGGY_SVG.replace('width="90" height="100"','width="48" height="54"')}</div>
+        <div style="padding:10px 12px;border-radius:10px;background:#fef9c3;border:0.5px solid #fde047;flex:1;">
+          <div style="font-size:11px;color:#854d0e;font-weight:500;">⚠️ AI analysis — not a safety guarantee</div>
+          <div style="font-size:10px;color:#92400e;margin-top:2px;line-height:1.5;">Always confirm with staff. Sauces and stocks may not be listed.</div>
+        </div>
+      </div>
+      <div style="font-size:10px;color:#bbb;font-weight:500;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">ShellCheck reviewed ${(analysis.dishes||[]).length} dishes</div>
+      ${(analysis.dishes||[]).map(d=>{
+        const c=riskColor[d.risk]||"#9ca3af";
+        const squiggly = d.risk==="avoid" ? "text-decoration:underline;text-decoration-style:wavy;text-decoration-color:#dc2626;" : d.risk==="caution" ? "text-decoration:underline;text-decoration-style:wavy;text-decoration-color:#d97706;" : "";
+        return `<div style="display:flex;align-items:flex-start;gap:9px;padding:10px 12px;border-radius:10px;margin-bottom:6px;background:${c}08;border:0.5px solid ${c}33;">
+          <span style="font-size:13px;flex-shrink:0;">${riskEmoji[d.risk]||"⚪"}</span>
+          <div style="flex:1;min-width:0;">
+            <div style="font-weight:500;font-size:13px;color:#111;${squiggly}">${d.name}</div>
+            ${d.reason?`<div style="font-size:11px;color:#888;margin-top:2px;line-height:1.4;">${d.reason}</div>`:""}
+          </div>
+          <span style="font-size:9px;font-weight:500;padding:3px 7px;border-radius:6px;white-space:nowrap;flex-shrink:0;color:${c};background:${c}15;">${riskLabel[d.risk]||d.risk}</span>
+        </div>`;
+      }).join("")}`;
+  }
+
+  document.getElementById("modal-container").innerHTML=`
+    <div class="modal-overlay" onclick="closeModal()">
+      <div class="modal-sheet" onclick="event.stopPropagation()" style="position:relative;"><button onclick="closeModal()" style="position:absolute;top:12px;right:12px;width:26px;height:26px;border-radius:50%;border:none;background:#f0f0f0;color:#888;font-size:12px;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;">✕</button>
+        
+        <div style="display:flex;align-items:center;gap:11px;margin-bottom:13px;padding-bottom:13px;border-bottom:0.5px solid #f0f0f0;">
+          <div style="width:36px;height:36px;border-radius:10px;background:#fff7ed;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">${cEmoji(r.cuisine)}</div>
+          <div style="flex:1;">
+            <div style="font-weight:500;font-size:15px;color:#111;">${r.name}</div>
+            <div style="font-size:11px;color:#bbb;">ShellCheck scan results</div>
+          </div>
+          
+        </div>
+        ${body}
+        ${status==="done"||status==="error"?`<div style="margin-top:13px;"><button onclick="closeModal()" style="width:100%;padding:12px;background:#111;border:none;border-radius:10px;color:#fff;font-weight:500;font-size:13px;cursor:pointer;">Got it</button></div>`:""}
+      </div>
+    </div>`;
+}
+
+async function scanMenu(id) {
+  const r = RESTAURANTS.find(x=>x.id===id);
+  if (!r) return;
+  showScanModal(r,"scraping",null,null);
+  let menuData=null;
+  try { menuData=await scrapeYelp(r.yelp); } catch(e){}
+  showScanModal(r,"analyzing",null,null);
+  try {
+    const analysis=await analyzeWithClaude(r.name,r.cuisine,menuData);
+    showScanModal(r,"done",analysis,null);
+  } catch(e) { showScanModal(r,"error",null,e.message); }
+}
+
+async function scrapeYelp(url) {
+  const run=await(await fetch(`https://api.apify.com/v2/acts/petr_cermak~yelp-scraper/runs?token=${APIFY_TOKEN}`,{
+    method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({startUrls:[{url}],maxRequestsPerCrawl:1,scrapeReviews:false,scrapeMenu:true}),
+  })).json();
+  const runId=run?.data?.id;
+  if (!runId) throw new Error("No run ID");
+  for (let i=0;i<20;i++) {
+    await new Promise(r=>setTimeout(r,3000));
+    const s=await(await fetch(`https://api.apify.com/v2/actor-runs/${runId}?token=${APIFY_TOKEN}`)).json();
+    if (s?.data?.status==="SUCCEEDED") break;
+    if (s?.data?.status==="FAILED") throw new Error("Scrape failed");
+  }
+  const items=await(await fetch(`https://api.apify.com/v2/datasets/${run.data.defaultDatasetId}/items?token=${APIFY_TOKEN}`)).json();
+  return items?.[0]||null;
+}
+
+async function analyzeWithClaude(name,cuisine,menuData) {
+  let menuText=menuData?JSON.stringify(menuData).slice(0,3000):"";
+  if (!menuText||menuText.length<20) menuText=`Restaurant: ${name}, Cuisine: ${cuisine}. No menu data.`;
+  const res=await fetch("https://api.anthropic.com/v1/messages",{
+    method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({
+      model:"claude-sonnet-4-20250514",max_tokens:1000,
+      system:`You identify shellfish ingredients in restaurant menu items. Shellfish: shrimp, crab, lobster, clams, oysters, mussels, scallops, squid, octopus. Hidden sources: oyster sauce, fish sauce, worcestershire, bisque, bouillabaisse, paella, surimi, seafood stock, XO sauce.
+Classify each dish:
+- "safe": shellfish not found in name or description
+- "caution": may contain hidden shellfish (sauce-based, unclear prep) or ambiguous
+- "avoid": clearly contains shellfish
+Never claim a dish is safe for allergy sufferers. Respond ONLY with JSON: {"dishes":[{"name":"...","risk":"safe"|"caution"|"avoid","reason":"...or null"}]}`,
+      messages:[{role:"user",content:`Restaurant: ${name}\nCuisine: ${cuisine}\nMenu: ${menuText}`}],
+    }),
+  });
+  const data=await res.json();
+  const text=data?.content?.[0]?.text||"{}";
+  return JSON.parse(text.replace(/```json|```/g,"").trim());
+}
+
+// ---- INFO SHEET ----
+function openInfoSheet() {
+  document.getElementById("modal-container").innerHTML = `
+    <div class="modal-overlay" onclick="closeModal()">
+      <div class="modal-sheet" onclick="event.stopPropagation()" style="position:relative;max-height:92vh;"><button onclick="closeModal()" style="position:absolute;top:12px;right:12px;width:26px;height:26px;border-radius:50%;border:none;background:#f0f0f0;color:#888;font-size:12px;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;">✕</button>
+        
+        <div style="font-weight:800;font-size:20px;margin-bottom:4px;">🦪 ShellSafe Guide</div>
+        <div style="font-size:12px;color:#9ca3af;margin-bottom:20px;">Understanding shellfish allergy risks when eating out</div>
+
+        <div style="margin-bottom:16px;">
+          <div style="font-weight:700;font-size:14px;color:#111;margin-bottom:8px;">🦞 What counts as shellfish?</div>
+          <div style="font-size:13px;color:#374151;line-height:1.7;background:#f8f9fa;padding:12px 14px;border-radius:12px;border:1px solid #e5e7eb;">
+            <strong>Crustaceans:</strong> shrimp, crab, lobster, crayfish, prawns<br/>
+            <strong>Mollusks:</strong> clams, oysters, mussels, scallops, squid (calamari), octopus, abalone<br/><br/>
+            Many people are allergic to one group but not the other — always consult your allergist.
+          </div>
+        </div>
+
+        <div style="margin-bottom:16px;">
+          <div style="font-weight:700;font-size:14px;color:#111;margin-bottom:8px;">🕵️ Hidden shellfish to watch for</div>
+          <div style="font-size:13px;color:#374151;line-height:1.7;background:#fff7ed;padding:12px 14px;border-radius:12px;border:1px solid #fed7aa;">
+            <strong>Sauces:</strong> oyster sauce, XO sauce, fish sauce, worcestershire<br/>
+            <strong>Dishes:</strong> paella, bouillabaisse, bisque, pad thai, risotto<br/>
+            <strong>Broths:</strong> seafood stock, dashi<br/>
+            <strong>Imitation crab (surimi)</strong> is made from fish but often processed alongside shellfish<br/><br/>
+            Ask: <em>"Does this contain any shellfish, shellfish-based sauces, or shellfish stock?"</em>
+          </div>
+        </div>
+
+        <div style="margin-bottom:16px;">
+          <div style="font-weight:700;font-size:14px;color:#dc2626;margin-bottom:8px;">🍟 The shared fryer problem</div>
+          <div style="font-size:13px;color:#374151;line-height:1.7;background:#fef2f2;padding:12px 14px;border-radius:12px;border:1px solid #fca5a5;">
+            <strong>This is one of the most overlooked risks.</strong><br/><br/>
+            If a restaurant fries shrimp, calamari, or any shellfish, that oil becomes contaminated. Frying your chicken or fries in the same oil can trigger a serious reaction — even if your dish contains zero shellfish.<br/><br/>
+            Always ask: <em>"Do you have a dedicated fryer that has never been used for shellfish?"</em><br/><br/>
+            If staff are unsure, treat it as a shared fryer.
+          </div>
+        </div>
+
+        <div style="margin-bottom:16px;">
+          <div style="font-weight:700;font-size:14px;color:#111;margin-bottom:8px;">⚠️ Cross-contamination risks</div>
+          <div style="font-size:13px;color:#374151;line-height:1.7;background:#f8f9fa;padding:12px 14px;border-radius:12px;border:1px solid #e5e7eb;">
+            Even shellfish-free dishes can be contaminated through:<br/><br/>
+            • Shared cutting boards, knives, or prep surfaces<br/>
+            • Shared cooking water (pasta boiled in same pot)<br/>
+            • Staff handling shellfish then your food without changing gloves<br/>
+            • Shared fryers<br/><br/>
+            Risk is highest at seafood restaurants and Asian fusion kitchens.
+          </div>
+        </div>
+
+        <div style="margin-bottom:16px;">
+          <div style="font-weight:700;font-size:14px;color:#111;margin-bottom:8px;">💬 What to say to your server</div>
+          <div style="font-size:13px;color:#374151;line-height:1.7;background:#eff6ff;padding:12px 14px;border-radius:12px;border:1px solid #bfdbfe;">
+            Say this clearly when you sit down:<br/><br/>
+            <em>"I have a serious shellfish allergy. Can you check with the kitchen:<br/>
+            1. Does my dish contain any shellfish, shellfish-based sauces, or stock?<br/>
+            2. Do you have a dedicated fryer never used for shellfish?<br/>
+            3. Will my dish be prepared on a separate surface from shellfish?"</em><br/><br/>
+            If staff seem unsure, ask to speak with a manager or chef.
+          </div>
+        </div>
+
+        <div style="margin-bottom:20px;padding:12px 14px;border-radius:12px;background:#fef9c3;border:1px solid #fde047;">
+          <div style="font-weight:700;font-size:12px;color:#854d0e;margin-bottom:4px;">About ShellCheck</div>
+          <div style="font-size:11px;color:#92400e;line-height:1.6;">ShellSafe provides menu information based on publicly available data. We do not verify kitchens, certify restaurants, or guarantee safety. Menu data may be outdated or incomplete. Always carry your epinephrine auto-injector and follow the advice of your allergist.</div>
+        </div>
+
+        <button onclick="closeModal()" style="width:100%;padding:13px;background:#111;border:none;border-radius:13px;color:#fff;font-weight:700;font-size:14px;cursor:pointer;">Got it</button>
+      </div>
+    </div>`;
+}
+
+render();
+</script>
+</body>
+</html>
