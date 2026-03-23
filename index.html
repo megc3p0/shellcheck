@@ -226,67 +226,67 @@ const NEIGHBORHOODS = [
 ];
 
 const RESTAURANTS = [
-  { id:1, name:"Mamma Maria", lat:null, lng:null, website:"https://mammamaria.com", neighborhood:"north-end", cuisine:"Italian", menuType:"some", fryerStatus:"unknown", price:"$$$$", address:"3 North Square, Boston, MA", notes:"Menu contains baked oysters and lobster agnolotti pasta, indicating shellfish presence.", yelp:"" },
-  { id:2, name:"Carmelina's", lat:null, lng:null, website:"https://carmelinasboston.com", neighborhood:"north-end", cuisine:"Italian", menuType:"heavy", fryerStatus:"unknown", price:"$$$", address:"307 Hanover St, Boston, MA", notes:"Menu heavily features shellfish including mussels, shrimp, clams, lobster, calamari in multiple dishes throughout.", yelp:"" },
-  { id:3, name:"Mike's Pastry", lat:null, lng:null, website:"https://mikespastry.com", neighborhood:"north-end", cuisine:"Bakery", menuType:"none", fryerStatus:"na", price:"$", address:"300 Hanover St, Boston, MA", notes:"Lobster Tail pastries are shellfish-free — no actual shellfish on menu", yelp:"" },
-  { id:4, name:"Nebo", lat:null, lng:null, website:"https://neboboston.com", neighborhood:"north-end", cuisine:"Italian", menuType:"heavy", fryerStatus:"unknown", price:"$$$", address:"90 North Washington St, Boston, MA", notes:"Multiple shellfish dishes throughout menu including calamari, shrimp, mussels, clams, scallops, and lobster in various preparations.", yelp:"" },
-  { id:5, name:"bartaco", lat:null, lng:null, website:"https://bartaco.com/location/seaport", neighborhood:"seaport", cuisine:"Mexican", menuType:"some", fryerStatus:"unknown", price:"$$", address:"25 Thomson Pl, Boston, MA", notes:"Menu contains multiple shellfish items including yucatán shrimp, ceviche with shrimp, and fried oysters.", yelp:"" },
-  { id:6, name:"Woods Hill Pier 4", lat:null, lng:null, website:"https://woodshillpier4.com", neighborhood:"seaport", cuisine:"American", menuType:"heavy", fryerStatus:"unknown", price:"$$$$", address:"300 Pier 4 Blvd, Boston, MA", notes:"Extensive shellfish menu including oyster tower, multiple lobster dishes, crab, shrimp, clams, mussels, and squid ink pasta.", yelp:"" },
-  { id:7, name:"Flour Bakery Fort Point", lat:null, lng:null, website:"https://flourbakery.com", neighborhood:"seaport", cuisine:"Bakery", menuType:"none", fryerStatus:"na", price:"$", address:"12 Farnsworth St, Boston, MA", notes:"Bakery with salads, sandwiches, and baked goods - no shellfish ingredients found in any menu items.", yelp:"" },
-  { id:8, name:"Publico Street Bistro", lat:null, lng:null, website:"https://publicoboston.com", neighborhood:"seaport", cuisine:"American", menuType:"some", fryerStatus:"unknown", price:"$$$", address:"1 Appleton St, Boston, MA", notes:"Menu includes raw bar with oysters and shrimp cocktail, plus shrimp as protein add-on option.", yelp:"" },
-  { id:9, name:"Abe & Louie's", lat:null, lng:null, website:"https://abeandlouies.com", neighborhood:"back-bay", cuisine:"Steakhouse", menuType:"some", fryerStatus:"unknown", price:"$$$$", address:"793 Boylston St, Boston, MA", notes:"Menu explicitly mentions Oyster Rockefeller and Lobster Madame, indicating shellfish presence at this steakhouse.", yelp:"" },
-  { id:10, name:"Grill 23", lat:null, lng:null, website:"https://grill23.com", neighborhood:"back-bay", cuisine:"Steakhouse", menuType:"heavy", fryerStatus:"unknown", price:"$$$$", address:"161 Berkeley St, Boston, MA", notes:"Extensive raw bar with shellfish sampler, multiple crab and lobster dishes, plus fried items throughout the menu.", yelp:"" },
-  { id:11, name:"Eataly Boston", lat:null, lng:null, website:"https://eataly.com/us_en/stores/boston", neighborhood:"back-bay", cuisine:"Italian", menuType:"some", fryerStatus:"unknown", price:"$$", address:"800 Boylston St, Boston, MA", notes:"Italian market/restaurant with canned seafood section mentioned, potential for shellfish in prepared foods.", yelp:"" },
-  { id:12, name:"Stephanie's on Newbury", lat:null, lng:null, website:"https://stephaniesonnewbury.com", neighborhood:"back-bay", cuisine:"American", menuType:"heavy", fryerStatus:"unknown", price:"$$", address:"190 Newbury St, Boston, MA", notes:"Menu features multiple shellfish dishes including New England clam chowder with native clams, fried calamari, lobster options, and lobster salad additions.", yelp:"" },
-  { id:13, name:"Basho Japanese Brasserie", lat:null, lng:null, website:"https://bashoboston.com", neighborhood:"back-bay", cuisine:"Japanese", menuType:"heavy", fryerStatus:"unknown", price:"$$$", address:"mixology Dr, Boston, MA", notes:"Japanese restaurant with extensive sushi menu containing crab, shrimp, soft shell crab, snow crab, seafood salad, and squid throughout multiple dishes.", yelp:"" },
-  { id:14, name:"Dirty Water Dough Co", lat:null, lng:null, website:"https://dirtywaterdough.com", neighborhood:"back-bay", cuisine:"Pizza", menuType:"none", fryerStatus:"unknown", price:"$", address:"334 Newbury St, Boston, MA", notes:"Pizza restaurant with sandwiches, burgers, wings, and fried items but no shellfish ingredients found in menu descriptions.", yelp:"" },
-  { id:15, name:"Piattini Wine Cafe", lat:null, lng:null, website:"https://piattini.com", neighborhood:"back-bay", cuisine:"Italian", menuType:"some", fryerStatus:"unknown", price:"$$", address:"226 Newbury St, Boston, MA", notes:"Menu includes New England mussels dish which contains shellfish.", yelp:"" },
-  { id:16, name:"Myers + Chang", lat:null, lng:null, website:"https://myersandchang.com", neighborhood:"south-end", cuisine:"Asian Fusion", menuType:"some", fryerStatus:"unknown", price:"$$", address:"1145 Washington St, Boston, MA", notes:"Menu contains multiple shellfish items including mussels, shrimp dishes, and udon with black bean-oyster sauce.", yelp:"" },
-  { id:17, name:"Coppa", lat:null, lng:null, website:"https://coppaboston.com", neighborhood:"south-end", cuisine:"Italian", menuType:"some", fryerStatus:"unknown", price:"$$$", address:"253 Shawmut Ave, Boston, MA", notes:"Menu contains shellfish including oysters and clams (Vongole pizza), plus crab pasta and uni carbonara.", yelp:"" },
-  { id:18, name:"Toro", lat:null, lng:null, website:"https://toro-restaurant.com", neighborhood:"south-end", cuisine:"Spanish", menuType:"heavy", fryerStatus:"unknown", price:"$$$", address:"1704 Washington St, Boston, MA", notes:"Multiple shellfish dishes including gambas al ajillo (shrimp), pulpo a la plantxa (octopus), uni bocadillo, and paella valenciana with shrimp, mussels, and clams.", yelp:"" },
-  { id:19, name:"Orinoco", lat:null, lng:null, website:"https://orinocokitchen.com", neighborhood:"south-end", cuisine:"Venezuelan", menuType:"none", fryerStatus:"unknown", price:"$$", address:"477 Shawmut Ave, Boston, MA", notes:"Venezuelan menu with meat, chicken, plantains, and empanadas but no shellfish ingredients found.", yelp:"" },
-  { id:20, name:"Flour Bakery South End", lat:null, lng:null, website:"https://flourbakery.com", neighborhood:"south-end", cuisine:"Bakery", menuType:"none", fryerStatus:"na", price:"$", address:"1595 Washington St, Boston, MA", notes:"Bakery with salads, sandwiches, and baked goods - no shellfish ingredients identified in menu descriptions.", yelp:"" },
-  { id:21, name:"Wink & Nod", lat:null, lng:null, website:"https://winkandnod.com", neighborhood:"south-end", cuisine:"American", menuType:"some", fryerStatus:"unknown", price:"$$$", address:"3 Appleton St, Boston, MA", notes:"Menu mentions shrimp & pulpo (octopus) ceviche and calls out to seafood lovers with scallops.", yelp:"" },
-  { id:22, name:"Tremont 647", lat:null, lng:null, website:"https://tremont647.com", neighborhood:"south-end", cuisine:"American", menuType:"heavy", fryerStatus:"unknown", price:"$$", address:"647 Tremont St, Boston, MA", notes:"This is clearly a sushi restaurant with extensive sushi, sashimi, and rolls menu containing shellfish ingredients.", yelp:"" },
-  { id:23, name:"75 Chestnut", lat:null, lng:null, website:"https://75chestnut.com", neighborhood:"beacon-hill", cuisine:"American", menuType:"heavy", fryerStatus:"unknown", price:"$$$", address:"75 Chestnut St, Boston, MA", notes:"Menu features multiple shellfish dishes including lobster toast, lobster omelet, crab cakes, clam chowder, shrimp cocktail, and fried calamari.", yelp:"" },
-  { id:24, name:"Harvard Gardens", lat:null, lng:null, website:"https://harvardgardens.com", neighborhood:"beacon-hill", cuisine:"American", menuType:"some", fryerStatus:"unknown", price:"$$", address:"316 Cambridge St, Boston, MA", notes:"Menu contains Brown Butter Lobster Slider which contains shellfish (lobster).", yelp:"" },
-  { id:25, name:"Cheers", lat:null, lng:null, website:"https://cheersboston.com", neighborhood:"beacon-hill", cuisine:"American", menuType:"some", fryerStatus:"unknown", price:"$$", address:"84 Beacon St, Boston, MA", notes:"Menu contains crispy fried calamari which is squid, a shellfish allergen.", yelp:"" },
-  { id:26, name:"Sweet Cheeks Q", lat:null, lng:null, website:"https://sweetcheeksq.com", neighborhood:"fenway", cuisine:"American", menuType:"none", fryerStatus:"unknown", price:"$$", address:"1381 Boylston St, Boston, MA", notes:"BBQ restaurant menu shows only land-based meats (pork, beef, chicken) with no shellfish ingredients listed.", yelp:"" },
-  { id:27, name:"Bleacher Bar", lat:null, lng:null, website:"https://bleacherbarboston.com", neighborhood:"fenway", cuisine:"American", menuType:"some", fryerStatus:"unknown", price:"$$", address:"82A Lansdowne St, Boston, MA", notes:"Menu includes clam chowder which contains shellfish, though most other dishes are shellfish-free.", yelp:"" },
-  { id:28, name:"Loretta's Last Call", lat:null, lng:null, website:"https://lorettaslastcall.com", neighborhood:"fenway", cuisine:"American", menuType:"none", fryerStatus:"unknown", price:"$$", address:"1 Lansdowne St, Boston, MA", notes:"American BBQ restaurant with fried foods but no shellfish items found on extensive menu.", yelp:"" },
-  { id:29, name:"Eastern Standard", lat:null, lng:null, website:"https://easternstandardboston.com", neighborhood:"fenway", cuisine:"American", menuType:"heavy", fryerStatus:"unknown", price:"$$$", address:"528 Commonwealth Ave, Boston, MA", notes:"Raw bar with oysters, clams, crab claws, lobster cocktail, and shrimp cocktail indicates heavy shellfish presence.", yelp:"" },
-  { id:30, name:"Giulia", lat:null, lng:null, website:"https://giuliarestaurant.com", neighborhood:"cambridge", cuisine:"Italian", menuType:"some", fryerStatus:"unknown", price:"$$$", address:"1682 Massachusetts Ave, Cambridge, MA", notes:"Menu contains oysters and hamachi crudo (raw fish), plus other seafood items like salmon.", yelp:"" },
-  { id:31, name:"Area Four", lat:null, lng:null, website:"https://areafour.com", neighborhood:"cambridge", cuisine:"Pizza", menuType:"some", fryerStatus:"unknown", price:"$$", address:"500 Technology Square, Cambridge, MA", notes:"Menu includes a Clam Oreganato pizza with fresh clams, which are shellfish.", yelp:"" },
-  { id:32, name:"Alden & Harlow", lat:null, lng:null, website:"https://aldenharlow.com", neighborhood:"cambridge", cuisine:"American", menuType:"some", fryerStatus:"unknown", price:"$$$", address:"40 Brattle St, Cambridge, MA", notes:"Menu contains wood smoked shrimp, squid ink bucatini, fish sauce in multiple dishes, and bouquerones aioli.", yelp:"" },
-  { id:33, name:"Harvest", lat:null, lng:null, website:"https://harvestcambridge.com", neighborhood:"cambridge", cuisine:"American", menuType:"heavy", fryerStatus:"unknown", price:"$$$$", address:"44 Brattle St, Cambridge, MA", notes:"Extensive raw bar with oysters, shrimp, clams, crab, mussels, calamari, and lobster throughout menu plus fried items requiring shared fryer caution.", yelp:"" },
-  { id:34, name:"Veggie Galaxy", lat:null, lng:null, website:"https://veggiegalaxy.com", neighborhood:"cambridge", cuisine:"Vegetarian", menuType:"some", fryerStatus:"unknown", price:"$$", address:"450 Massachusetts Ave, Cambridge, MA", notes:"Restaurant lists 'Clam Chowder' on menu despite being vegetarian, indicating potential shellfish presence or cross-contamination risk.", yelp:"" },
-  { id:35, name:"Mamaleh's", lat:null, lng:null, website:"https://mamalehs.com", neighborhood:"cambridge", cuisine:"American", menuType:"some", fryerStatus:"unknown", price:"$$", address:"13 Holyoke St, Cambridge, MA", notes:"Jewish deli with multiple fish items including sturgeon, salmon, whitefish, sable, herring, and caviar.", yelp:"" },
-  { id:36, name:"Sarma", lat:null, lng:null, website:"https://sarmarestaurant.com", neighborhood:"cambridge", cuisine:"Mediterranean", menuType:"some", fryerStatus:"unknown", price:"$$$", address:"249 Pearl St, Somerville, MA", notes:"Menu contains octopus, scallops, cod, and crab cake which are shellfish or seafood dishes.", yelp:"" },
-  { id:37, name:"Pammy's", lat:null, lng:null, website:"https://pammyscambridge.com", neighborhood:"cambridge", cuisine:"Italian", menuType:"some", fryerStatus:"unknown", price:"$$$", address:"928 Massachusetts Ave, Cambridge, MA", notes:"Menu includes lobster biscotto and spelt fried oysters which contain shellfish.", yelp:"" },
-  { id:38, name:"Catalyst", lat:null, lng:null, website:"https://catalystrestaurant.com", neighborhood:"cambridge", cuisine:"American", menuType:"some", fryerStatus:"unknown", price:"$$$", address:"300 Technology Square, Cambridge, MA", notes:"Menu contains shellfish items including mussels, clams in the Seared Blue Cod dish, and grilled shrimp as an enhancement option.", yelp:"" },
-  { id:39, name:"Rialto", lat:null, lng:null, website:"https://rialto-restaurant.com", neighborhood:"cambridge", cuisine:"Italian", menuType:"heavy", fryerStatus:"unknown", price:"$$$$", address:"1 Bennett St, Cambridge, MA", notes:"Extensive shellfish throughout menu including shrimp, lobster, crab, mussels, scallops, and calamari in numerous dishes.", yelp:"" },
-  { id:40, name:"Dorado Tacos", lat:null, lng:null, website:"https://doradotacos.com", neighborhood:"jamaica-plain", cuisine:"Mexican", menuType:"some", fryerStatus:"unknown", price:"$", address:"401 Centre St, Jamaica Plain, MA", notes:"Baja California-style fish tacos are specifically mentioned, indicating shellfish presence in Mexican seafood dishes.", yelp:"" },
-  { id:41, name:"Centre Street Cafe", lat:null, lng:null, website:"https://centrestreetcafe.com", neighborhood:"jamaica-plain", cuisine:"American", menuType:"some", fryerStatus:"unknown", price:"$$", address:"669A Centre St, Jamaica Plain, MA", notes:"Menu mentions Creole Seafood Gumbo which likely contains shellfish.", yelp:"" },
-  { id:42, name:"Brassica", lat:null, lng:null, website:"https://brassicakitchen.com", neighborhood:"jamaica-plain", cuisine:"Mediterranean", menuType:"some", fryerStatus:"unknown", price:"$$", address:"3710 Washington St, Jamaica Plain, MA", notes:"Menu contains mussels and several seafood dishes including tuna tartare, hamachi crudo, and swordfish.", yelp:"" },
-  { id:43, name:"Cunard Tavern", lat:null, lng:null, website:"https://cunardtavern.com", neighborhood:"east-boston", cuisine:"American", menuType:"some", fryerStatus:"unknown", price:"$$", address:"24 Orleans St, East Boston, MA", notes:"Menu includes steamed Maine mussels and several fried items indicating shellfish presence and shared fryer risk.", yelp:"" },
-  { id:44, name:"Santarpio's Pizza", lat:null, lng:null, website:"https://santarpiospizza.com", neighborhood:"east-boston", cuisine:"Pizza", menuType:"some", fryerStatus:"unknown", price:"$", address:"111 Chelsea St, East Boston, MA", notes:"Menu includes shrimp scampi pizza and shrimp as a pizza topping option.", yelp:"" },
-  { id:45, name:"Angela's Cafe", lat:null, lng:null, website:"https://angelascafeboston.com", neighborhood:"east-boston", cuisine:"Mexican", menuType:"some", fryerStatus:"unknown", price:"$", address:"131 Lexington St, East Boston, MA", notes:"Multiple shrimp dishes throughout menu including tacos, quesadillas, and burritos, plus fish tacos and fried options available.", yelp:"" },
-  { id:46, name:"The Ninety Nine", lat:null, lng:null, website:"https://99restaurants.com", neighborhood:"east-boston", cuisine:"American", menuType:"some", fryerStatus:"unknown", price:"$$", address:"134 Meridian St, East Boston, MA", notes:"Menu mentions Creamy Garlic Shrimp Scampi and Boom Boom Shrimp Mac & Cheese, indicating shellfish presence.", yelp:"" },
-  { id:47, name:"Capo", lat:null, lng:null, website:"https://caposouthboston.com", neighborhood:"seaport", cuisine:"Italian", menuType:"heavy", fryerStatus:"unknown", price:"$$$", address:"443 W Broadway, Boston, MA", notes:"Multiple shellfish dishes including fried calamari, lobster linguini, shrimp scampi, scallops saltimbocca, and seafood cioppino with mixed shellfish.", yelp:"" },
-  { id:48, name:"Lucky's Lounge", lat:null, lng:null, website:"https://luckyslounge.com", neighborhood:"seaport", cuisine:"American", menuType:"some", fryerStatus:"unknown", price:"$$", address:"355 Congress St, Boston, MA", notes:"Menu includes salmon and fish dishes, plus consumer advisory mentions shellfish allergen risks.", yelp:"" },
-  { id:49, name:"The Salty Pig", lat:null, lng:null, website:"https://thesaltypig.com", neighborhood:"seaport", cuisine:"American", menuType:"some", fryerStatus:"unknown", price:"$$", address:"130 Dartmouth St, Boston, MA", notes:"Menu includes linguine with shrimp and mussels, plus option to add shrimp to salads.", yelp:"" },
-  { id:50, name:"The Junction", lat:null, lng:null, website:"https://thejunctionboston.com", neighborhood:"seaport", cuisine:"American", menuType:"some", fryerStatus:"unknown", price:"$$", address:"110 Dorchester Ave, Boston, MA", notes:"Menu contains multiple shellfish items including lobster roll, crab rolls, and tempura shrimp rolls in the sushi section.", yelp:"" },
-  { id:51, name:"SRV", lat:null, lng:null, website:"https://srvboston.com", neighborhood:"south-end", cuisine:"Italian", menuType:"some", fryerStatus:"unknown", price:"$$$", address:"569 Columbus Ave, Boston, MA", notes:"Menu contains multiple shellfish items including crab, lobster, mussels, prawns, uni, and scallops.", yelp:"" },
-  { id:52, name:"Aquitaine", lat:null, lng:null, website:"https://aquitaineboston.com", neighborhood:"south-end", cuisine:"French", menuType:"some", fryerStatus:"unknown", price:"$$$", address:"569 Tremont St, Boston, MA", notes:"Menu contains mussels (moules en cassoulette) which are shellfish, plus this is a restaurant that likely fries food.", yelp:"" },
-  { id:53, name:"King & I", lat:null, lng:null, website:"https://kingandibostonbeaconhill.com", neighborhood:"beacon-hill", cuisine:"Thai", menuType:"heavy", fryerStatus:"unknown", price:"$$", address:"145 Charles St, Boston, MA", notes:"Extensive shellfish offerings including multiple shrimp dishes, squid, mussels, crab rangoon, and entire seafood section with 15+ shellfish dishes.", yelp:"" },
-  { id:54, name:"Felipe's Taqueria", lat:null, lng:null, website:"https://felipestaqueria.com", neighborhood:"cambridge", cuisine:"Mexican", menuType:"some", fryerStatus:"unknown", price:"$", address:"21 Brattle St, Cambridge, MA", notes:"Menu contains fried shrimp tacos which is shellfish, and restaurant likely uses fryers for various items.", yelp:"" },
-  { id:55, name:"Mei Mei", lat:null, lng:null, website:"https://meimeiboston.com", neighborhood:"cambridge", cuisine:"Asian Fusion", menuType:"unverified", fryerStatus:"unknown", price:"$$", address:"506 Park Dr, Boston, MA", notes:"This appears to be a homepage with company information and navigation but contains no actual menu items or specific dumpling flavors to analyze for shellfish content.", yelp:"" },
-  { id:56, name:"Brassica Kitchen", lat:null, lng:null, website:"https://brassicakitchen.com", neighborhood:"jamaica-plain", cuisine:"Mediterranean", menuType:"some", fryerStatus:"unknown", price:"$$", address:"3710 Washington St, Jamaica Plain, MA", notes:"Menu contains mussels and multiple fish dishes (tuna, hamachi, swordfish) indicating shellfish presence.", yelp:"" },
-  { id:57, name:"La Morra", lat:null, lng:null, website:"https://lamorra.com", neighborhood:"fenway", cuisine:"Italian", menuType:"some", fryerStatus:"unknown", price:"$$$", address:"48 Boylston St, Brookline, MA", notes:"Menu contains shrimp ravioli and monkfish dishes, plus anchovy vinaigrette.", yelp:"" },
-  { id:58, name:"Anna's Taqueria", lat:null, lng:null, website:"https://annastaqueria.com", neighborhood:"fenway", cuisine:"Mexican", menuType:"none", fryerStatus:"unknown", price:"$", address:"1412 Beacon St, Brookline, MA", notes:"Mexican restaurant serving tacos, burritos, bowls and quesadillas with no shellfish items mentioned in their food descriptions.", yelp:"" },
-  { id:59, name:"Deep Ellum", lat:null, lng:null, website:"https://deepellum.com", neighborhood:"fenway", cuisine:"American", menuType:"unverified", fryerStatus:"unknown", price:"$$", address:"477 Cambridge St, Allston, MA", notes:"This is just a general information site about Deep Ellum neighborhood with no actual restaurant menu or specific food items listed.", yelp:"" },
-  { id:60, name:"Saltie Girl", lat:null, lng:null, website:"https://saltiegirl.com", neighborhood:"back-bay", cuisine:"American", menuType:"heavy", fryerStatus:"unknown", price:"$$$$", address:"279 Dartmouth St, Boston, MA", notes:"Saltie Girl is a seafood bar featuring oysters, lobster, and seafood throughout their concept.", yelp:"" },
-  { id:61, name:"Dirty Water Dough", lat:null, lng:null, website:"https://dirtywaterdough.com", neighborhood:"back-bay", cuisine:"Pizza", menuType:"none", fryerStatus:"unknown", price:"$", address:"334 Newbury St, Boston, MA", notes:"Pizza restaurant with sandwiches, salads, burgers and fried items but no shellfish ingredients found in any menu descriptions.", yelp:"" },
+  { id:1, name:"Mamma Maria", lat:42.3639, lng:-71.0537, website:"https://mammamaria.com", neighborhood:"north-end", cuisine:"Italian", menuType:"some", fryerStatus:"unknown", price:"$$$$", address:"3 North Square, Boston, MA", notes:"Menu contains baked oysters and lobster agnolotti pasta, indicating shellfish presence.", yelp:"" },
+  { id:2, name:"Carmelina's", lat:42.3647, lng:-71.0541, website:"https://carmelinasboston.com", neighborhood:"north-end", cuisine:"Italian", menuType:"heavy", fryerStatus:"unknown", price:"$$$", address:"307 Hanover St, Boston, MA", notes:"Menu heavily features shellfish including mussels, shrimp, clams, lobster, calamari in multiple dishes throughout.", yelp:"" },
+  { id:3, name:"Mike's Pastry", lat:42.3645, lng:-71.0538, website:"https://mikespastry.com", neighborhood:"north-end", cuisine:"Bakery", menuType:"none", fryerStatus:"na", price:"$", address:"300 Hanover St, Boston, MA", notes:"Lobster Tail pastries are shellfish-free — no actual shellfish on menu", yelp:"" },
+  { id:4, name:"Nebo", lat:42.3665, lng:-71.0563, website:"https://neboboston.com", neighborhood:"north-end", cuisine:"Italian", menuType:"heavy", fryerStatus:"unknown", price:"$$$", address:"90 North Washington St, Boston, MA", notes:"Multiple shellfish dishes throughout menu including calamari, shrimp, mussels, clams, scallops, and lobster in various preparations.", yelp:"" },
+  { id:5, name:"bartaco", lat:42.3513, lng:-71.0465, website:"https://bartaco.com/location/seaport", neighborhood:"seaport", cuisine:"Mexican", menuType:"some", fryerStatus:"unknown", price:"$$", address:"25 Thomson Pl, Boston, MA", notes:"Menu contains multiple shellfish items including yucatán shrimp, ceviche with shrimp, and fried oysters.", yelp:"" },
+  { id:6, name:"Woods Hill Pier 4", lat:42.3497, lng:-71.0432, website:"https://woodshillpier4.com", neighborhood:"seaport", cuisine:"American", menuType:"heavy", fryerStatus:"unknown", price:"$$$$", address:"300 Pier 4 Blvd, Boston, MA", notes:"Extensive shellfish menu including oyster tower, multiple lobster dishes, crab, shrimp, clams, mussels, and squid ink pasta.", yelp:"" },
+  { id:7, name:"Flour Bakery Fort Point", lat:42.3514, lng:-71.0491, website:"https://flourbakery.com", neighborhood:"seaport", cuisine:"Bakery", menuType:"none", fryerStatus:"na", price:"$", address:"12 Farnsworth St, Boston, MA", notes:"Bakery with salads, sandwiches, and baked goods - no shellfish ingredients found in any menu items.", yelp:"" },
+  { id:8, name:"Publico Street Bistro", lat:42.3363, lng:-71.0624, website:"https://publicoboston.com", neighborhood:"seaport", cuisine:"American", menuType:"some", fryerStatus:"unknown", price:"$$$", address:"1 Appleton St, Boston, MA", notes:"Menu includes raw bar with oysters and shrimp cocktail, plus shrimp as protein add-on option.", yelp:"" },
+  { id:9, name:"Abe & Louie's", lat:42.3494, lng:-71.0811, website:"https://abeandlouies.com", neighborhood:"back-bay", cuisine:"Steakhouse", menuType:"some", fryerStatus:"unknown", price:"$$$$", address:"793 Boylston St, Boston, MA", notes:"Menu explicitly mentions Oyster Rockefeller and Lobster Madame, indicating shellfish presence at this steakhouse.", yelp:"" },
+  { id:10, name:"Grill 23", lat:42.3497, lng:-71.0731, website:"https://grill23.com", neighborhood:"back-bay", cuisine:"Steakhouse", menuType:"heavy", fryerStatus:"unknown", price:"$$$$", address:"161 Berkeley St, Boston, MA", notes:"Extensive raw bar with shellfish sampler, multiple crab and lobster dishes, plus fried items throughout the menu.", yelp:"" },
+  { id:11, name:"Eataly Boston", lat:42.3484, lng:-71.0826, website:"https://eataly.com/us_en/stores/boston", neighborhood:"back-bay", cuisine:"Italian", menuType:"some", fryerStatus:"unknown", price:"$$", address:"800 Boylston St, Boston, MA", notes:"Italian market/restaurant with canned seafood section mentioned, potential for shellfish in prepared foods.", yelp:"" },
+  { id:12, name:"Stephanie's on Newbury", lat:42.351, lng:-71.0795, website:"https://stephaniesonnewbury.com", neighborhood:"back-bay", cuisine:"American", menuType:"heavy", fryerStatus:"unknown", price:"$$", address:"190 Newbury St, Boston, MA", notes:"Menu features multiple shellfish dishes including New England clam chowder with native clams, fried calamari, lobster options, and lobster salad additions.", yelp:"" },
+  { id:13, name:"Basho Japanese Brasserie", lat:42.3484, lng:-71.0826, website:"https://bashoboston.com", neighborhood:"back-bay", cuisine:"Japanese", menuType:"heavy", fryerStatus:"unknown", price:"$$$", address:"mixology Dr, Boston, MA", notes:"Japanese restaurant with extensive sushi menu containing crab, shrimp, soft shell crab, snow crab, seafood salad, and squid throughout multiple dishes.", yelp:"" },
+  { id:14, name:"Dirty Water Dough Co", lat:42.3527, lng:-71.0826, website:"https://dirtywaterdough.com", neighborhood:"back-bay", cuisine:"Pizza", menuType:"none", fryerStatus:"unknown", price:"$", address:"334 Newbury St, Boston, MA", notes:"Pizza restaurant with sandwiches, burgers, wings, and fried items but no shellfish ingredients found in menu descriptions.", yelp:"" },
+  { id:15, name:"Piattini Wine Cafe", lat:42.3522, lng:-71.082, website:"https://piattini.com", neighborhood:"back-bay", cuisine:"Italian", menuType:"some", fryerStatus:"unknown", price:"$$", address:"226 Newbury St, Boston, MA", notes:"Menu includes New England mussels dish which contains shellfish.", yelp:"" },
+  { id:16, name:"Myers + Chang", lat:42.3459, lng:-71.0664, website:"https://myersandchang.com", neighborhood:"south-end", cuisine:"Asian Fusion", menuType:"some", fryerStatus:"unknown", price:"$$", address:"1145 Washington St, Boston, MA", notes:"Menu contains multiple shellfish items including mussels, shrimp dishes, and udon with black bean-oyster sauce.", yelp:"" },
+  { id:17, name:"Coppa", lat:42.3441, lng:-71.071, website:"https://coppaboston.com", neighborhood:"south-end", cuisine:"Italian", menuType:"some", fryerStatus:"unknown", price:"$$$", address:"253 Shawmut Ave, Boston, MA", notes:"Menu contains shellfish including oysters and clams (Vongole pizza), plus crab pasta and uni carbonara.", yelp:"" },
+  { id:18, name:"Toro", lat:42.3418, lng:-71.0745, website:"https://toro-restaurant.com", neighborhood:"south-end", cuisine:"Spanish", menuType:"heavy", fryerStatus:"unknown", price:"$$$", address:"1704 Washington St, Boston, MA", notes:"Multiple shellfish dishes including gambas al ajillo (shrimp), pulpo a la plantxa (octopus), uni bocadillo, and paella valenciana with shrimp, mussels, and clams.", yelp:"" },
+  { id:19, name:"Orinoco", lat:42.3432, lng:-71.0692, website:"https://orinocokitchen.com", neighborhood:"south-end", cuisine:"Venezuelan", menuType:"none", fryerStatus:"unknown", price:"$$", address:"477 Shawmut Ave, Boston, MA", notes:"Venezuelan menu with meat, chicken, plantains, and empanadas but no shellfish ingredients found.", yelp:"" },
+  { id:20, name:"Flour Bakery South End", lat:42.343, lng:-71.072, website:"https://flourbakery.com", neighborhood:"south-end", cuisine:"Bakery", menuType:"none", fryerStatus:"na", price:"$", address:"1595 Washington St, Boston, MA", notes:"Bakery with salads, sandwiches, and baked goods - no shellfish ingredients identified in menu descriptions.", yelp:"" },
+  { id:21, name:"Wink & Nod", lat:42.3459, lng:-71.0642, website:"https://winkandnod.com", neighborhood:"south-end", cuisine:"American", menuType:"some", fryerStatus:"unknown", price:"$$$", address:"3 Appleton St, Boston, MA", notes:"Menu mentions shrimp & pulpo (octopus) ceviche and calls out to seafood lovers with scallops.", yelp:"" },
+  { id:22, name:"Tremont 647", lat:42.342, lng:-71.0728, website:"https://tremont647.com", neighborhood:"south-end", cuisine:"American", menuType:"heavy", fryerStatus:"unknown", price:"$$", address:"647 Tremont St, Boston, MA", notes:"This is clearly a sushi restaurant with extensive sushi, sashimi, and rolls menu containing shellfish ingredients.", yelp:"" },
+  { id:23, name:"75 Chestnut", lat:42.3579, lng:-71.0694, website:"https://75chestnut.com", neighborhood:"beacon-hill", cuisine:"American", menuType:"heavy", fryerStatus:"unknown", price:"$$$", address:"75 Chestnut St, Boston, MA", notes:"Menu features multiple shellfish dishes including lobster toast, lobster omelet, crab cakes, clam chowder, shrimp cocktail, and fried calamari.", yelp:"" },
+  { id:24, name:"Harvard Gardens", lat:42.3613, lng:-71.0694, website:"https://harvardgardens.com", neighborhood:"beacon-hill", cuisine:"American", menuType:"some", fryerStatus:"unknown", price:"$$", address:"316 Cambridge St, Boston, MA", notes:"Menu contains Brown Butter Lobster Slider which contains shellfish (lobster).", yelp:"" },
+  { id:25, name:"Cheers", lat:42.3568, lng:-71.0703, website:"https://cheersboston.com", neighborhood:"beacon-hill", cuisine:"American", menuType:"some", fryerStatus:"unknown", price:"$$", address:"84 Beacon St, Boston, MA", notes:"Menu contains crispy fried calamari which is squid, a shellfish allergen.", yelp:"" },
+  { id:26, name:"Sweet Cheeks Q", lat:42.3459, lng:-71.0967, website:"https://sweetcheeksq.com", neighborhood:"fenway", cuisine:"American", menuType:"none", fryerStatus:"unknown", price:"$$", address:"1381 Boylston St, Boston, MA", notes:"BBQ restaurant menu shows only land-based meats (pork, beef, chicken) with no shellfish ingredients listed.", yelp:"" },
+  { id:27, name:"Bleacher Bar", lat:42.3464, lng:-71.0976, website:"https://bleacherbarboston.com", neighborhood:"fenway", cuisine:"American", menuType:"some", fryerStatus:"unknown", price:"$$", address:"82A Lansdowne St, Boston, MA", notes:"Menu includes clam chowder which contains shellfish, though most other dishes are shellfish-free.", yelp:"" },
+  { id:28, name:"Loretta's Last Call", lat:42.3462, lng:-71.0974, website:"https://lorettaslastcall.com", neighborhood:"fenway", cuisine:"American", menuType:"none", fryerStatus:"unknown", price:"$$", address:"1 Lansdowne St, Boston, MA", notes:"American BBQ restaurant with fried foods but no shellfish items found on extensive menu.", yelp:"" },
+  { id:29, name:"Eastern Standard", lat:42.3491, lng:-71.098, website:"https://easternstandardboston.com", neighborhood:"fenway", cuisine:"American", menuType:"heavy", fryerStatus:"unknown", price:"$$$", address:"528 Commonwealth Ave, Boston, MA", notes:"Raw bar with oysters, clams, crab claws, lobster cocktail, and shrimp cocktail indicates heavy shellfish presence.", yelp:"" },
+  { id:30, name:"Giulia", lat:42.3881, lng:-71.1218, website:"https://giuliarestaurant.com", neighborhood:"cambridge", cuisine:"Italian", menuType:"some", fryerStatus:"unknown", price:"$$$", address:"1682 Massachusetts Ave, Cambridge, MA", notes:"Menu contains oysters and hamachi crudo (raw fish), plus other seafood items like salmon.", yelp:"" },
+  { id:31, name:"Area Four", lat:42.3628, lng:-71.0901, website:"https://areafour.com", neighborhood:"cambridge", cuisine:"Pizza", menuType:"some", fryerStatus:"unknown", price:"$$", address:"500 Technology Square, Cambridge, MA", notes:"Menu includes a Clam Oreganato pizza with fresh clams, which are shellfish.", yelp:"" },
+  { id:32, name:"Alden & Harlow", lat:42.3729, lng:-71.1211, website:"https://aldenharlow.com", neighborhood:"cambridge", cuisine:"American", menuType:"some", fryerStatus:"unknown", price:"$$$", address:"40 Brattle St, Cambridge, MA", notes:"Menu contains wood smoked shrimp, squid ink bucatini, fish sauce in multiple dishes, and bouquerones aioli.", yelp:"" },
+  { id:33, name:"Harvest", lat:42.3729, lng:-71.1206, website:"https://harvestcambridge.com", neighborhood:"cambridge", cuisine:"American", menuType:"heavy", fryerStatus:"unknown", price:"$$$$", address:"44 Brattle St, Cambridge, MA", notes:"Extensive raw bar with oysters, shrimp, clams, crab, mussels, calamari, and lobster throughout menu plus fried items requiring shared fryer caution.", yelp:"" },
+  { id:34, name:"Veggie Galaxy", lat:42.3642, lng:-71.1033, website:"https://veggiegalaxy.com", neighborhood:"cambridge", cuisine:"Vegetarian", menuType:"some", fryerStatus:"unknown", price:"$$", address:"450 Massachusetts Ave, Cambridge, MA", notes:"Restaurant lists 'Clam Chowder' on menu despite being vegetarian, indicating potential shellfish presence or cross-contamination risk.", yelp:"" },
+  { id:35, name:"Mamaleh's", lat:42.371, lng:-71.1175, website:"https://mamalehs.com", neighborhood:"cambridge", cuisine:"American", menuType:"some", fryerStatus:"unknown", price:"$$", address:"13 Holyoke St, Cambridge, MA", notes:"Jewish deli with multiple fish items including sturgeon, salmon, whitefish, sable, herring, and caviar.", yelp:"" },
+  { id:36, name:"Sarma", lat:42.3928, lng:-71.1043, website:"https://sarmarestaurant.com", neighborhood:"cambridge", cuisine:"Mediterranean", menuType:"some", fryerStatus:"unknown", price:"$$$", address:"249 Pearl St, Somerville, MA", notes:"Menu contains octopus, scallops, cod, and crab cake which are shellfish or seafood dishes.", yelp:"" },
+  { id:37, name:"Pammy's", lat:42.3662, lng:-71.1062, website:"https://pammyscambridge.com", neighborhood:"cambridge", cuisine:"Italian", menuType:"some", fryerStatus:"unknown", price:"$$$", address:"928 Massachusetts Ave, Cambridge, MA", notes:"Menu includes lobster biscotto and spelt fried oysters which contain shellfish.", yelp:"" },
+  { id:38, name:"Catalyst", lat:42.3628, lng:-71.0901, website:"https://catalystrestaurant.com", neighborhood:"cambridge", cuisine:"American", menuType:"some", fryerStatus:"unknown", price:"$$$", address:"300 Technology Square, Cambridge, MA", notes:"Menu contains shellfish items including mussels, clams in the Seared Blue Cod dish, and grilled shrimp as an enhancement option.", yelp:"" },
+  { id:39, name:"Rialto", lat:42.3729, lng:-71.1199, website:"https://rialto-restaurant.com", neighborhood:"cambridge", cuisine:"Italian", menuType:"heavy", fryerStatus:"unknown", price:"$$$$", address:"1 Bennett St, Cambridge, MA", notes:"Extensive shellfish throughout menu including shrimp, lobster, crab, mussels, scallops, and calamari in numerous dishes.", yelp:"" },
+  { id:40, name:"Dorado Tacos", lat:42.3128, lng:-71.1069, website:"https://doradotacos.com", neighborhood:"jamaica-plain", cuisine:"Mexican", menuType:"some", fryerStatus:"unknown", price:"$", address:"401 Centre St, Jamaica Plain, MA", notes:"Baja California-style fish tacos are specifically mentioned, indicating shellfish presence in Mexican seafood dishes.", yelp:"" },
+  { id:41, name:"Centre Street Cafe", lat:42.3123, lng:-71.1124, website:"https://centrestreetcafe.com", neighborhood:"jamaica-plain", cuisine:"American", menuType:"some", fryerStatus:"unknown", price:"$$", address:"669A Centre St, Jamaica Plain, MA", notes:"Menu mentions Creole Seafood Gumbo which likely contains shellfish.", yelp:"" },
+  { id:42, name:"Brassica", lat:42.3104, lng:-71.1145, website:"https://brassicakitchen.com", neighborhood:"jamaica-plain", cuisine:"Mediterranean", menuType:"some", fryerStatus:"unknown", price:"$$", address:"3710 Washington St, Jamaica Plain, MA", notes:"Menu contains mussels and several seafood dishes including tuna tartare, hamachi crudo, and swordfish.", yelp:"" },
+  { id:43, name:"Cunard Tavern", lat:42.3771, lng:-71.0384, website:"https://cunardtavern.com", neighborhood:"east-boston", cuisine:"American", menuType:"some", fryerStatus:"unknown", price:"$$", address:"24 Orleans St, East Boston, MA", notes:"Menu includes steamed Maine mussels and several fried items indicating shellfish presence and shared fryer risk.", yelp:"" },
+  { id:44, name:"Santarpio's Pizza", lat:42.3739, lng:-71.0368, website:"https://santarpiospizza.com", neighborhood:"east-boston", cuisine:"Pizza", menuType:"some", fryerStatus:"unknown", price:"$", address:"111 Chelsea St, East Boston, MA", notes:"Menu includes shrimp scampi pizza and shrimp as a pizza topping option.", yelp:"" },
+  { id:45, name:"Angela's Cafe", lat:42.3752, lng:-71.0428, website:"https://angelascafeboston.com", neighborhood:"east-boston", cuisine:"Mexican", menuType:"some", fryerStatus:"unknown", price:"$", address:"131 Lexington St, East Boston, MA", notes:"Multiple shrimp dishes throughout menu including tacos, quesadillas, and burritos, plus fish tacos and fried options available.", yelp:"" },
+  { id:46, name:"The Ninety Nine", lat:42.3745, lng:-71.0393, website:"https://99restaurants.com", neighborhood:"east-boston", cuisine:"American", menuType:"some", fryerStatus:"unknown", price:"$$", address:"134 Meridian St, East Boston, MA", notes:"Menu mentions Creamy Garlic Shrimp Scampi and Boom Boom Shrimp Mac & Cheese, indicating shellfish presence.", yelp:"" },
+  { id:47, name:"Capo", lat:42.3354, lng:-71.0571, website:"https://caposouthboston.com", neighborhood:"seaport", cuisine:"Italian", menuType:"heavy", fryerStatus:"unknown", price:"$$$", address:"443 W Broadway, Boston, MA", notes:"Multiple shellfish dishes including fried calamari, lobster linguini, shrimp scampi, scallops saltimbocca, and seafood cioppino with mixed shellfish.", yelp:"" },
+  { id:48, name:"Lucky's Lounge", lat:42.3517, lng:-71.053, website:"https://luckyslounge.com", neighborhood:"seaport", cuisine:"American", menuType:"some", fryerStatus:"unknown", price:"$$", address:"355 Congress St, Boston, MA", notes:"Menu includes salmon and fish dishes, plus consumer advisory mentions shellfish allergen risks.", yelp:"" },
+  { id:49, name:"The Salty Pig", lat:42.3494, lng:-71.0756, website:"https://thesaltypig.com", neighborhood:"seaport", cuisine:"American", menuType:"some", fryerStatus:"unknown", price:"$$", address:"130 Dartmouth St, Boston, MA", notes:"Menu includes linguine with shrimp and mussels, plus option to add shrimp to salads.", yelp:"" },
+  { id:50, name:"The Junction", lat:42.3381, lng:-71.0587, website:"https://thejunctionboston.com", neighborhood:"seaport", cuisine:"American", menuType:"some", fryerStatus:"unknown", price:"$$", address:"110 Dorchester Ave, Boston, MA", notes:"Menu contains multiple shellfish items including lobster roll, crab rolls, and tempura shrimp rolls in the sushi section.", yelp:"" },
+  { id:51, name:"SRV", lat:42.3452, lng:-71.0789, website:"https://srvboston.com", neighborhood:"south-end", cuisine:"Italian", menuType:"some", fryerStatus:"unknown", price:"$$$", address:"569 Columbus Ave, Boston, MA", notes:"Menu contains multiple shellfish items including crab, lobster, mussels, prawns, uni, and scallops.", yelp:"" },
+  { id:52, name:"Aquitaine", lat:42.3428, lng:-71.0725, website:"https://aquitaineboston.com", neighborhood:"south-end", cuisine:"French", menuType:"some", fryerStatus:"unknown", price:"$$$", address:"569 Tremont St, Boston, MA", notes:"Menu contains mussels (moules en cassoulette) which are shellfish, plus this is a restaurant that likely fries food.", yelp:"" },
+  { id:53, name:"King & I", lat:42.3583, lng:-71.0701, website:"https://kingandibostonbeaconhill.com", neighborhood:"beacon-hill", cuisine:"Thai", menuType:"heavy", fryerStatus:"unknown", price:"$$", address:"145 Charles St, Boston, MA", notes:"Extensive shellfish offerings including multiple shrimp dishes, squid, mussels, crab rangoon, and entire seafood section with 15+ shellfish dishes.", yelp:"" },
+  { id:54, name:"Felipe's Taqueria", lat:42.3733, lng:-71.1196, website:"https://felipestaqueria.com", neighborhood:"cambridge", cuisine:"Mexican", menuType:"some", fryerStatus:"unknown", price:"$", address:"21 Brattle St, Cambridge, MA", notes:"Menu contains fried shrimp tacos which is shellfish, and restaurant likely uses fryers for various items.", yelp:"" },
+  { id:55, name:"Mei Mei", lat:42.3459, lng:-71.0987, website:"https://meimeiboston.com", neighborhood:"cambridge", cuisine:"Asian Fusion", menuType:"unverified", fryerStatus:"unknown", price:"$$", address:"506 Park Dr, Boston, MA", notes:"This appears to be a homepage with company information and navigation but contains no actual menu items or specific dumpling flavors to analyze for shellfish content.", yelp:"" },
+  { id:56, name:"Brassica Kitchen", lat:42.3104, lng:-71.1145, website:"https://brassicakitchen.com", neighborhood:"jamaica-plain", cuisine:"Mediterranean", menuType:"some", fryerStatus:"unknown", price:"$$", address:"3710 Washington St, Jamaica Plain, MA", notes:"Menu contains mussels and multiple fish dishes (tuna, hamachi, swordfish) indicating shellfish presence.", yelp:"" },
+  { id:57, name:"La Morra", lat:42.3356, lng:-71.1249, website:"https://lamorra.com", neighborhood:"fenway", cuisine:"Italian", menuType:"some", fryerStatus:"unknown", price:"$$$", address:"48 Boylston St, Brookline, MA", notes:"Menu contains shrimp ravioli and monkfish dishes, plus anchovy vinaigrette.", yelp:"" },
+  { id:58, name:"Anna's Taqueria", lat:42.3356, lng:-71.1211, website:"https://annastaqueria.com", neighborhood:"fenway", cuisine:"Mexican", menuType:"none", fryerStatus:"unknown", price:"$", address:"1412 Beacon St, Brookline, MA", notes:"Mexican restaurant serving tacos, burritos, bowls and quesadillas with no shellfish items mentioned in their food descriptions.", yelp:"" },
+  { id:59, name:"Deep Ellum", lat:42.3535, lng:-71.1316, website:"https://deepellum.com", neighborhood:"fenway", cuisine:"American", menuType:"unverified", fryerStatus:"unknown", price:"$$", address:"477 Cambridge St, Allston, MA", notes:"This is just a general information site about Deep Ellum neighborhood with no actual restaurant menu or specific food items listed.", yelp:"" },
+  { id:60, name:"Saltie Girl", lat:42.3494, lng:-71.0756, website:"https://saltiegirl.com", neighborhood:"back-bay", cuisine:"American", menuType:"heavy", fryerStatus:"unknown", price:"$$$$", address:"279 Dartmouth St, Boston, MA", notes:"Saltie Girl is a seafood bar featuring oysters, lobster, and seafood throughout their concept.", yelp:"" },
+  { id:61, name:"Dirty Water Dough", lat:42.3527, lng:-71.0826, website:"https://dirtywaterdough.com", neighborhood:"back-bay", cuisine:"Pizza", menuType:"none", fryerStatus:"unknown", price:"$", address:"334 Newbury St, Boston, MA", notes:"Pizza restaurant with sandwiches, salads, burgers and fried items but no shellfish ingredients found in any menu descriptions.", yelp:"" },
 ];
 
 const HOOD_EMOJI = {
@@ -737,7 +737,53 @@ const ZIGGY_SVG = `<svg width="90" height="100" viewBox="0 0 120 120" xmlns="htt
   <path d="M28 112 Q34 108 40 112 Q46 116 52 112 Q58 108 64 112 Q70 116 76 112 Q82 108 88 112" fill="none" stroke="#dc2626" stroke-width="2.5" stroke-linecap="round"/>
 </svg>`;
 
-function showScanModal(r, status, analysis, error) {
+// Ziggy — small thumbs up (all clear)
+const ZIGGY_CLEAR = `<svg width="48" height="54" viewBox="0 0 120 130" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="60" cy="70" r="48" fill="#16a34a" opacity="0.08"/>
+  <path d="M60 38 Q84 52 87 76 Q90 96 75 106 Q62 113 48 106 Q33 98 36 76 Q38 56 60 38 Z" fill="#f4a166"/>
+  <ellipse cx="60" cy="50" rx="27" ry="22" fill="#f4a166"/>
+  <rect x="41" y="44" width="16" height="12" rx="5" fill="none" stroke="#333" stroke-width="2"/>
+  <rect x="63" y="44" width="16" height="12" rx="5" fill="none" stroke="#333" stroke-width="2"/>
+  <line x1="57" y1="50" x2="63" y2="50" stroke="#333" stroke-width="2"/>
+  <circle cx="49" cy="50" r="3.5" fill="#1a1a1a"/><circle cx="47" cy="48" r="1.5" fill="white"/>
+  <circle cx="71" cy="50" r="3.5" fill="#1a1a1a"/><circle cx="69" cy="48" r="1.5" fill="white"/>
+  <path d="M50 61 Q60 70 70 61" fill="none" stroke="#e8895a" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="24" cy="28" r="13" fill="#16a34a"/>
+  <path d="M17 28 L22 34 L32 20" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>`;
+
+// Ziggy — alarmed (some shellfish)
+const ZIGGY_CAUTION = `<svg width="48" height="54" viewBox="0 0 120 130" xmlns="http://www.w3.org/2000/svg">
+  <path d="M60 38 Q84 52 87 76 Q90 96 75 106 Q62 113 48 106 Q33 98 36 76 Q38 56 60 38 Z" fill="#f4a166"/>
+  <ellipse cx="60" cy="50" rx="27" ry="22" fill="#f4a166"/>
+  <rect x="41" y="44" width="16" height="12" rx="5" fill="none" stroke="#333" stroke-width="2"/>
+  <rect x="63" y="44" width="16" height="12" rx="5" fill="none" stroke="#333" stroke-width="2"/>
+  <line x1="57" y1="50" x2="63" y2="50" stroke="#333" stroke-width="2"/>
+  <circle cx="49" cy="50" r="4.5" fill="#1a1a1a"/><circle cx="46" cy="47" r="1.5" fill="white"/>
+  <circle cx="71" cy="50" r="4.5" fill="#1a1a1a"/><circle cx="68" cy="47" r="1.5" fill="white"/>
+  <path d="M41 42 Q49 38 57 42" fill="none" stroke="#c44a20" stroke-width="2" stroke-linecap="round"/>
+  <path d="M63 42 Q71 38 79 42" fill="none" stroke="#c44a20" stroke-width="2" stroke-linecap="round"/>
+  <path d="M52 64 Q60 59 68 64" fill="none" stroke="#e8895a" stroke-width="2" stroke-linecap="round"/>
+  <polygon points="95,12 108,34 82,34" fill="#f59e0b"/>
+  <text x="95" y="30" text-anchor="middle" font-size="14" font-weight="bold" fill="white">!</text>
+</svg>`;
+
+// Ziggy — overwhelmed (heavy shellfish)
+const ZIGGY_HEAVY = `<svg width="48" height="54" viewBox="0 0 120 130" xmlns="http://www.w3.org/2000/svg">
+  <path d="M50 42 Q70 54 72 76 Q74 94 62 102 Q52 108 42 101 Q30 93 32 75 Q34 57 50 42 Z" fill="#f4a166"/>
+  <ellipse cx="50" cy="53" rx="24" ry="20" fill="#f4a166"/>
+  <rect x="30" y="47" width="14" height="11" rx="5" fill="none" stroke="#333" stroke-width="2"/>
+  <rect x="49" y="47" width="14" height="11" rx="5" fill="none" stroke="#333" stroke-width="2"/>
+  <circle cx="37" cy="52" r="4.5" fill="white"/><circle cx="37" cy="54" r="3" fill="#1a1a1a"/>
+  <circle cx="56" cy="52" r="4.5" fill="white"/><circle cx="56" cy="54" r="3" fill="#1a1a1a"/>
+  <ellipse cx="46" cy="65" rx="6" ry="4" fill="#c44a20"/>
+  <text x="85" y="35" font-size="22">🦐</text>
+  <text x="90" y="75" font-size="18">🦀</text>
+  <circle cx="25" cy="25" r="12" fill="#dc2626"/>
+  <text x="25" y="30" text-anchor="middle" font-size="14" font-weight="bold" fill="white">!</text>
+</svg>`;
+
+(r, status, analysis, error) {
   const riskColor = { safe:"#16a34a", caution:"#d97706", avoid:"#dc2626" };
   const riskEmoji = { safe:"🟢", caution:"🟠", avoid:"🔴" };
   const riskLabel = { safe:"No Shellfish Detected", caution:"Check With Staff", avoid:"Contains Shellfish" };
@@ -755,6 +801,12 @@ function showScanModal(r, status, analysis, error) {
       <div style="font-weight:500;font-size:15px;margin-bottom:4px;color:#111;">${randomMsg(SCAN_MESSAGES.analyzing)}</div>
       <span class="dot1"></span><span class="dot2"></span><span class="dot3"></span>
     </div>`;
+  } else if (status==="notyet") {
+    body=`<div style="text-align:center;padding:28px 0 20px;">
+      <div style="display:inline-block;margin-bottom:12px;opacity:0.5;">${ZIGGY_SVG}</div>
+      <div style="font-weight:600;font-size:15px;margin-bottom:6px;color:#111;">Not yet reviewed</div>
+      <div style="font-size:13px;color:#888;line-height:1.6;max-width:240px;margin:0 auto;">This restaurant hasn't been reviewed yet. Check back soon — or visit their website and ask your server about shellfish.</div>
+    </div>`;
   } else if (status==="error") {
     body=`<div style="text-align:center;padding:34px 0;">
       <div style="font-size:32px;margin-bottom:10px;">😕</div>
@@ -762,24 +814,29 @@ function showScanModal(r, status, analysis, error) {
       <div style="font-size:12px;color:#aaa;">${error||"Try visiting the restaurant's website directly"}</div>
     </div>`;
   } else if (status==="done" && analysis) {
-    // Pick summary message based on overall risk level
-    const hasAvoid = (analysis.dishes||[]).some(d=>d.risk==="avoid");
-    const hasCaution = (analysis.dishes||[]).some(d=>d.risk==="caution");
-    const summaryMsg = hasAvoid
+    // Use menuType directly for cleaner messaging
+    const mt = analysis.menuType || (analysis.dishes||[]).some(d=>d.risk==="avoid") ? "heavy" : (analysis.dishes||[]).some(d=>d.risk==="caution") ? "some" : "none";
+    const summaryMsg = mt === "heavy"
       ? randomMsg(SCAN_MESSAGES.avoid)
-      : hasCaution
+      : mt === "some"
       ? randomMsg(SCAN_MESSAGES.caution)
       : randomMsg(SCAN_MESSAGES.none);
-    const summaryColor = hasAvoid ? "#dc2626" : hasCaution ? "#d97706" : "#16a34a";
+    const summaryColor = mt === "heavy" ? "#dc2626" : mt === "some" ? "#d97706" : "#16a34a";
+    const ziggyState = mt === "heavy" ? ZIGGY_HEAVY : mt === "some" ? ZIGGY_CAUTION : ZIGGY_CLEAR;
+
+    // Fryer warning
+    const fryerWarning = (analysis.fryerStatus === "unknown" && mt !== "none")
+      ? `<div style="padding:10px 12px;border-radius:10px;background:#fff7ed;border:0.5px solid #fed7aa;margin-bottom:8px;font-size:12px;color:#c2410c;">⚠️ <strong>Fryer risk:</strong> Shared fryer status unknown — ask your server.</div>`
+      : "";
 
     body=`
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
-        <div style="flex-shrink:0;">${ZIGGY_SVG.replace('width="90" height="100"','width="48" height="54"')}</div>
+        <div style="flex-shrink:0;">${ziggyState}</div>
         <div style="padding:10px 12px;border-radius:10px;background:#f9fafb;border:0.5px solid #e5e7eb;flex:1;">
           <div style="font-size:12px;color:${summaryColor};font-weight:500;line-height:1.5;">${summaryMsg}</div>
         </div>
       </div>
-      <div style="font-size:10px;color:#bbb;font-weight:500;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">ShellCheck reviewed ${(analysis.dishes||[]).length} dishes</div>
+      ${fryerWarning}
       ${(analysis.dishes||[]).map(d=>{
         const c=riskColor[d.risk]||"#9ca3af";
         const squiggly = d.risk==="avoid" ? "text-decoration:underline;text-decoration-style:wavy;text-decoration-color:#dc2626;" : d.risk==="caution" ? "text-decoration:underline;text-decoration-style:wavy;text-decoration-color:#d97706;" : "";
@@ -789,9 +846,11 @@ function showScanModal(r, status, analysis, error) {
             <div style="font-weight:500;font-size:13px;color:#111;${squiggly}">${d.name}</div>
             ${d.reason?`<div style="font-size:11px;color:#888;margin-top:2px;line-height:1.4;">${d.reason}</div>`:""}
           </div>
-          <span style="font-size:9px;font-weight:500;padding:3px 7px;border-radius:6px;white-space:nowrap;flex-shrink:0;color:${c};background:${c}15;">${riskLabel[d.risk]||d.risk}</span>
         </div>`;
-      }).join("")}`;
+      }).join("")}
+      <div style="margin-top:10px;padding:10px 12px;border-radius:10px;background:#f8f9fa;border:0.5px solid #e5e7eb;font-size:11px;color:#9ca3af;line-height:1.5;">
+        Based on menu data reviewed by ShellCheck. Menus change — always confirm with your server before ordering.
+      </div>`;
   }
 
   document.getElementById("modal-container").innerHTML=`
@@ -815,52 +874,30 @@ function showScanModal(r, status, analysis, error) {
 async function scanMenu(id) {
   const r = RESTAURANTS.find(x=>x.id===id);
   if (!r) return;
-  showScanModal(r,"scraping",null,null);
-  let menuData=null;
-  try { menuData=await scrapeYelp(r.yelp); } catch(e){}
-  showScanModal(r,"analyzing",null,null);
-  try {
-    const analysis=await analyzeWithClaude(r.name,r.cuisine,menuData);
-    showScanModal(r,"done",analysis,null);
-  } catch(e) { showScanModal(r,"error",null,e.message); }
-}
 
-async function scrapeYelp(url) {
-  const run=await(await fetch(`https://api.apify.com/v2/acts/petr_cermak~yelp-scraper/runs?token=${APIFY_TOKEN}`,{
-    method:"POST",headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({startUrls:[{url}],maxRequestsPerCrawl:1,scrapeReviews:false,scrapeMenu:true}),
-  })).json();
-  const runId=run?.data?.id;
-  if (!runId) throw new Error("No run ID");
-  for (let i=0;i<20;i++) {
-    await new Promise(r=>setTimeout(r,3000));
-    const s=await(await fetch(`https://api.apify.com/v2/actor-runs/${runId}?token=${APIFY_TOKEN}`)).json();
-    if (s?.data?.status==="SUCCEEDED") break;
-    if (s?.data?.status==="FAILED") throw new Error("Scrape failed");
+  // Show scanning animation briefly for effect
+  showScanModal(r, "scraping", null, null);
+  await new Promise(res => setTimeout(res, 1800));
+
+  // If we have pre-scraped data, show it instantly
+  if (r.menuType && r.menuType !== "unverified") {
+    showScanModal(r, "analyzing", null, null);
+    await new Promise(res => setTimeout(res, 1200));
+
+    // Build analysis object from pre-scraped data
+    const menuTypeToRisk = { none: "safe", some: "caution", heavy: "avoid" };
+    const risk = menuTypeToRisk[r.menuType] || "caution";
+
+    const analysis = {
+      dishes: r.notes ? [{ name: "Menu review", risk: risk, reason: r.notes }] : [],
+      menuType: r.menuType,
+      fryerStatus: r.fryerStatus,
+    };
+    showScanModal(r, "done", analysis, null);
+  } else {
+    // No data yet — show friendly not-yet-reviewed state
+    showScanModal(r, "notyet", null, null);
   }
-  const items=await(await fetch(`https://api.apify.com/v2/datasets/${run.data.defaultDatasetId}/items?token=${APIFY_TOKEN}`)).json();
-  return items?.[0]||null;
-}
-
-async function analyzeWithClaude(name,cuisine,menuData) {
-  let menuText=menuData?JSON.stringify(menuData).slice(0,3000):"";
-  if (!menuText||menuText.length<20) menuText=`Restaurant: ${name}, Cuisine: ${cuisine}. No menu data.`;
-  const res=await fetch("https://api.anthropic.com/v1/messages",{
-    method:"POST",headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({
-      model:"claude-sonnet-4-20250514",max_tokens:1000,
-      system:`You identify shellfish ingredients in restaurant menu items. Shellfish: shrimp, crab, lobster, clams, oysters, mussels, scallops, squid, octopus. Hidden sources: oyster sauce, fish sauce, worcestershire, bisque, bouillabaisse, paella, surimi, seafood stock, XO sauce.
-Classify each dish:
-- "safe": shellfish not found in name or description
-- "caution": may contain hidden shellfish (sauce-based, unclear prep) or ambiguous
-- "avoid": clearly contains shellfish
-Never claim a dish is safe for allergy sufferers. Respond ONLY with JSON: {"dishes":[{"name":"...","risk":"safe"|"caution"|"avoid","reason":"...or null"}]}`,
-      messages:[{role:"user",content:`Restaurant: ${name}\nCuisine: ${cuisine}\nMenu: ${menuText}`}],
-    }),
-  });
-  const data=await res.json();
-  const text=data?.content?.[0]?.text||"{}";
-  return JSON.parse(text.replace(/```json|```/g,"").trim());
 }
 
 // ---- INFO SHEET ----
